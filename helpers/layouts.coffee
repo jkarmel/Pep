@@ -7,7 +7,7 @@ exports.hardcode.application = (content) ->
       script src: "https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"
       script src: "/nowjs/now.js"
       if content?.js
-        script "data-main": "javascripts/#{content.js}", src: "/javascripts/require.js"
+        script "data-main": "javascripts/entry_point/#{content.js}", src: "/javascripts/vendor/require.min.js"
       content?.head?()
 
     body ->

@@ -1,1 +1,1 @@
-application()
+application js: "index.js"
