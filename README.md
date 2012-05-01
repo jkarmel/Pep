@@ -1,6 +1,6 @@
-# NodeJS Template
-
-This is a template node project.
+# LIFT
+##  A fast and convient service for Feeling Good
+### By Bam Pow Labs
 
 ## Technology Stack
 
