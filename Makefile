@@ -4,7 +4,19 @@ setup:
 	mkdir data
 	mkdir data/db
 	mkdir log
+	npm install
 	echo 'MONGOHQ_URL=mongodb://localhost/feelwelllabs/dev' > .env
+	make setup-front-end-testing
+
+setup-front-end-testing:
+	# Link javascripts in public to test directory
+	ln -s public/javascripts/ test/public/javascripts
+	# Copy over vendor libaries mocha, chai and coffeescript from node modules
+	npm install
+	mkdir test/public/vendor
+	cp -r node_modules/mocha/ test/public/vendor/mocha
+	cp -r node_modules/chai/ test/public/vendor/chai
+	cp -r node_modules/coffee-script test/public/vendor/coffee-script
 
 run:
 	$(mongo)
