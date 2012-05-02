@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mocha Browser Tests</title>
+
+  <!--
+  EXPLANATION
+  ===========
+  These are the mocha browser test for this project.
+
+  They are run by going the this file's parent
+  directory and running serve-this or a similar static file server.
+  -->
+
+  <!-- Mocha Style-->
+  <link rel="stylesheet" href="vendor/mocha/mocha.css" />
+
+  <!-- Test Infrastructure -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="vendor/mocha/mocha.js"></script>
+  <script src="vendor/chai/chai.js"></script>
+
+  <script>
+    chai.should();
+    mocha.setup("bdd")
+  </script>
+
+  <!-- Dependencies -->
+  <script src="vendor/coffee-script.js"></script>
+  <script src="javascripts/vendor/require.min.js"></script>
+
+  <!-- Files Tested -->
+  <script src="javascripts_test/ui_components/chat.spec.html.js"></script>
+  <script>
+    $(function () {
+      mocha
+        .run()
+        .globals(['View', "$$", "$$$"]) // acceptable globals
+    })
+  </script>
+
+</head>
+<body>
+  <div id="mocha"></div>
+</body>
+</html>

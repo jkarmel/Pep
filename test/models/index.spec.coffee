@@ -6,3 +6,4 @@ sinonChai = require 'sinon-chai'
 
 chai.use sinonChai
 should = chai.should()
+

@@ -31,4 +31,3 @@ describe "layout", ->
   it "uses require.js to load modules (if specified)", ->
     $('head script[src="/javascripts/require.js"][data-main="javascripts/main"]').length.should.equal(1)
 
-
