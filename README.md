@@ -6,12 +6,12 @@ A fast and convient service for Feeling Good
 
 When developing follow these simple rules:
 
- * *100% Test Coverage* - Every piece of code should be tested rigorously.
- * *Use Libraries* - Use open source libraries, it's faster and better than writing it ourselves.
- * *Simplicity* - Only write as much code as necessary to complete the task (but still high quality).
- * *Refactor* - When working with code a second time, refactor as necessary to keep the quality and abstraction high.
- * *Pair* - 66% of your development should be spent pairing. It's fun, social, and a great learning experience.
- * *Enjoy It* - If you aren't enjoying working in this code base, then we're doing something wrong.
+ * **100% Test Coverage** - Every piece of code should be tested rigorously.
+ * **Use Libraries** - Use open source libraries, it's faster and better than writing it ourselves.
+ * **Simplicity** - Only write as much code as necessary to complete the task (but still high quality).
+ * **Refactor** - When working with code a second time, refactor as necessary to keep the quality and abstraction high.
+ * **Pair** - 66% of your development should be spent pairing. It's fun, social, and a great learning experience.
+ * **Enjoy It** - If you aren't enjoying working in this code base, then we're doing something wrong.
 
 ## Style Guide
 
