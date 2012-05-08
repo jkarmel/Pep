@@ -28,6 +28,6 @@ watch:
 
 test:
 	$(mongo)
-	MONGOHQ_URL=mongodb://localhost/feelwelllabs/test ./node_modules/.bin/mocha test/routes/* test/helpers/* test/models/*
+	MONGOHQ_URL=mongodb://localhost/feelwelllabs/test ./node_modules/.bin/mocha test/routes/* test/helpers/* test/models/* --reporter spec
 
 .PHONY: setup run watch test
