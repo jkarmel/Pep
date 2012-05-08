@@ -6,6 +6,13 @@ mongoose.connect process.env.MONGOHQ_URL, (error) ->
 
 Schema = mongoose.Schema
 
+ConversationSchema = new Schema
+    messages: [MessageSchema]
+
+MessageSchema = new Schema
+    body: String
+    createdAt: {type: Date, default: Date.now}
+
 ClientSchema = new Schema
   clientId: String
   name:
@@ -14,13 +21,8 @@ ClientSchema = new Schema
     middle: String
   email: String
   phone: String
+  conversations: [ConversationSchema]
 
-ConversationSchema = new Schema
-  messages: [MessageSchema]
-
-MessageSchema = new Schema
-  body: String
-  createdAt: {type: Date, default: Date.now}
 
 exports.Client = Client = mongoose.model 'Client', ClientSchema
 exports.Conversation = Conversation = mongoose.model 'Conversation', ConversationSchema
