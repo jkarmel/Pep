@@ -25,3 +25,4 @@ describe "Chat", ->
       for num in [0...10]
         chat.messages.find(":contains('message number #{num}')").length
           .should.equal 1
+

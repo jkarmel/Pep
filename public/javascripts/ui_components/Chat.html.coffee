@@ -4,6 +4,8 @@ define ["/javascripts/vendor/space-pen.js"], ->
       @div ".chat", =>
         @div ".messages", outlet: "messages", ""
 
+    initialize: (@now) ->
+
     addMessage: (message) ->
       @messages.append $$ ->
         @div ".message", message.body
