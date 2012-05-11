@@ -36,7 +36,6 @@ describe 'ClientGroup', ->
 
   it 'can add messages to the most recent conversation', (done) ->
     clientGroup.now.should.respondTo 'addMessage'
-
     newestMessageText = 'lastest text'
     clientGroup.now.addMessage newestMessageText, ->
       Client.findOne {'email': 'jkarmel@me.com'}, (error, client) ->
@@ -44,16 +43,15 @@ describe 'ClientGroup', ->
         lastMessage.body.should.equal newestMessageText
         done()
 
-
   writableFields = 'email phone'.split /\s+/
 
   for field in writableFields
-    it "can write to #{field}", (done) ->
-      methodName = "set#{field}"
-      clientGroup.now.should.respondTo methodName
-      fakeEntry = "fake #{field}"
-      clientGroup.now[methodName] fakeEntry, ->
-        Client.findOne {}, (error, client) ->
-          client[field].should.equal fakeEntry
-
-          done()
+    do (field) ->
+      it "can write to #{field}", (done) ->
+        methodName = "set#{field}"
+        clientGroup.now.should.respondTo methodName
+        fakeEntry = "fake #{field}"
+        clientGroup.now[methodName] fakeEntry, ->
+          Client.findOne {}, (error, client) ->
+            client[field].should.equal fakeEntry
+            done()

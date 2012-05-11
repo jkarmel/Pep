@@ -16,10 +16,11 @@ exports.ClientGroup = (now, clientId)->
   writableFields = 'email phone'.split /\s+/
 
   for field in writableFields
-    clientGroup.now["set#{field}"] = (entry, callback)->
-      Client.findOne {_id : clientId}, (error, client)->
-        client[field] = entry
-        client.save (error)->
-          callback()
+    do (field) ->
+      clientGroup.now["set#{field}"] = (entry, callback)->
+        Client.findOne {_id : clientId}, (error, client)->
+          client[field] = entry
+          client.save (error, doc)->
+            callback()
 
   return clientGroup
