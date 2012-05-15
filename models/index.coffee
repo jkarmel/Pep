@@ -28,3 +28,30 @@ exports.Client = Client = mongoose.model 'Client', ClientSchema
 exports.Conversation = Conversation = mongoose.model 'Conversation', ConversationSchema
 exports.Message = Message = mongoose.model 'Message', MessageSchema
 
+SchemaModelPairs = [
+  [ConversationSchema, Conversation]
+  [MessageSchema, Message]
+  [ClientSchema, Client]
+]
+
+publishers = {}
+exports.setupPubSub = ->
+
+  #Publish on save
+  for [schema, model] in SchemaModelPairs
+    do (schema, model) ->
+
+      # setup publishing
+      schema.post 'save', (next) ->
+        if publishers[model.modelName]?[@_id]
+          func(@) for func in publishers[model.modelName][@_id]
+
+      model.prototype.subscribe = (func) ->
+        if publishers[model.modelName] == undefined
+          publishers[model.modelName] = {}
+        if  publishers[model.modelName][@_id] == undefined
+          publishers[model.modelName][@_id] = []
+
+        publishers[model.modelName][@_id].push func
+
+exports.clearSubs = -> publishers = {}

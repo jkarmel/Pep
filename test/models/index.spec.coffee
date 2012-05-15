@@ -77,3 +77,43 @@ describe 'Message', ->
       timeSinceCreated.should.be.within 0, oneSecond
       done()
 
+describe 'setupPubSub', ->
+  it 'allows Conversation objects to respond to subscribe', (done) ->
+    models.setupPubSub()
+    Conversation.collection.drop()
+    conversation = new Conversation
+    for i in [0...10]
+      message = new Message body: 'text'
+      conversation.messages.push message
+
+    conversation.should.respondTo 'subscribe'
+
+    spy = sinon.spy()
+
+    conversation.subscribe spy
+    conversation.save (error)->
+      spy.calledOnce.should.be.true
+      done()
+
+  it 'allows you to track changes to embedded documents', (done) ->
+    Client.collection.drop()
+    client = new Client
+        name:
+          first: 'Jeremy'
+          last: 'Karmel'
+        email: 'jkarmel@me.com'
+        phone: '9178873997'
+
+    conversation = new Conversation
+    client.conversations.push conversation
+
+    client.subscribe outerSpy = sinon.spy()
+    conversation.subscribe embeddedSpy = sinon.spy()
+    client.save ->
+      outerSpy.should.have.been.calledOnce
+      embeddedSpy.should.have.been.calledOnce
+      Client.findOne {}, (error, doc) ->
+        doc.conversations[0].messages.push new Message body: 'some text'
+        doc.save ->
+          embeddedSpy.should.have.been.calledTwice
+          done()
