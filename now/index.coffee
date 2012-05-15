@@ -2,8 +2,9 @@
 
 {Client, Message} = require "../models"
 
-exports.ClientGroup = (now, clientId)->
+exports.ClientGroup = ClientGroup = (now, clientId)->
   clientGroup = now.getGroup "client#clientId"
+  clientGroup._id = clientId
 
   clientGroup.now.addMessage = (body, callback)->
     Client.findOne {_id : clientId}, (error, client)->
@@ -23,4 +24,9 @@ exports.ClientGroup = (now, clientId)->
           client.save (error, doc)->
             callback()
 
-  return clientGroup
+  clientGroup
+
+exports.newClientGroup = (now, callback) ->
+  client = new Client
+  client.save (error, clientdb) ->
+    callback ClientGroup now, clientdb._id

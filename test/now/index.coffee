@@ -10,14 +10,14 @@ should = chai.should()
 _ = require 'underscore'
 
 {Client, Conversation, Message} = require '../../models'
-{ClientGroup} = require '../../now'
+{ClientGroup, newClientGroup} = require '../../now'
 
 describe 'ClientGroup', ->
   clientId = null
   nowMock = {getGroup: -> {now : {}} }
   clientGroup = null
 
-  before (done) ->
+  beforeEach (done) ->
     Client.collection.drop()
     Conversation.collection.drop()
     client = new Client
@@ -55,3 +55,11 @@ describe 'ClientGroup', ->
           Client.findOne {}, (error, client) ->
             client[field].should.equal fakeEntry
             done()
+
+  it 'can create a new client group',  (done) ->
+    newClientGroup nowMock, (group) ->
+      feelWellAdress = 'jeremy@feelwelllabs.com'
+      group.now.setemail feelWellAdress, ->
+        Client.findOne {_id: group._id}, (error, client) ->
+          client.email.should.equal feelWellAdress
+          done()
