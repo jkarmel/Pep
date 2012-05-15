@@ -66,3 +66,10 @@ if process.env.HEROKU
       transports: [ 'xhr-polling', 'jsonp-polling' ]
 
 everyone = nowjs.initialize app, nowSettings
+
+require('./now').extendNowjs(nowjs)
+
+everyone.now.newClient = (callback)->
+  nowjs.newClientGroup (group) =>
+    group.addUser @user.clientId
+    callback()

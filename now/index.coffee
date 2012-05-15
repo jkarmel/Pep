@@ -1,14 +1,15 @@
-{Client, Message} = require "../models"
+{Client, Message, Conversation} = require "../models"
 {extend} = require '../utils'
 
 clientGroupProperties =
   newClientGroup: (callback) ->
     client = new Client
+      conversations: [new Conversation]
     client.save (error, clientdb) =>
-      callback @getClientGroup clientdb._id
+      callback? @getClientGroup clientdb._id
 
   getClientGroup: (clientId) ->
-    clientGroup = @getGroup "client#{clientId}"
+    clientGroup = @getGroup "client##{clientId}"
     clientGroup._id = clientId
 
     clientGroup.now.addMessage = (body, callback)->
