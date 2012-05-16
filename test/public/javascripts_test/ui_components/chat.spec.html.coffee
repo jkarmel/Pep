@@ -1,9 +1,9 @@
 describe "Chat", ->
   Chat = {}
-  now  = {}
+  window.now  = {subscribers: []}
 
   before (done) ->
-    require ["/javascripts/ui_components/chat.html.js"], (ChatModule)->
+    require ["/javascripts/ui_components/chat.html.js", 'javascripts/now/client.js'], (ChatModule)->
       Chat = ChatModule
       done()
 
@@ -27,11 +27,22 @@ describe "Chat", ->
         chat.messages.find(":contains('message number #{num}')").length
           .should.equal 1
 
-    it "it has access to a now instance and reacts to a change in session", ->
+    it "it has access to a now instance and reacts to a change in user object", ->
       chat.now.should.exist
-      now.sessionChange
-         messages: (body: "message number #{num}" for num in [0...10])
+      fakeUser =
+        conversations: [
+          messages: (body: "message number #{num}" for num in [0...10])
+        ]
+      now.update fakeUser
       chat.messages.find(":contains('message')").length.should.equal 10
       for num in [0...10]
         chat.messages.find(":contains('message number #{num}')").length
           .should.equal 1
+
+      lastMessageText = "last message"
+      fakeUser.conversations[0].messages.push body: lastMessageText
+      now.update fakeUser
+      chat.messages.find(":contains('message')").length.should.equal 11
+      chat.messages.find(":contains('#{lastMessageText}')").length
+        .should.equal 1
+
