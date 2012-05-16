@@ -72,4 +72,8 @@ require('./now').extendNowjs(nowjs)
 everyone.now.newClient = (callback)->
   nowjs.newClientGroup (group) =>
     group.addUser @user.clientId
-    callback()
+    callback?()
+
+
+models = require './models'
+models.setupPubSub()

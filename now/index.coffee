@@ -17,17 +17,22 @@ clientGroupProperties =
         messages = client.conversations[client.conversations.length - 1].messages
         messages.push new Message body: body
         client.save (error, doc)->
-          callback()
+          callback?()
 
     writableFields = 'email phone'.split /\s+/
 
     for field in writableFields
       do (field) ->
-        clientGroup.now["set#{field}"] = (entry, callback)->
-          Client.findOne {_id : clientId}, (error, client)->
+        clientGroup.now["set#{field}"] = (entry, callback) ->
+          Client.findOne {_id : clientId}, (error, client) ->
             client[field] = entry
             client.save (error, doc)->
               callback()
+
+    Client.findOne {_id: clientId}, (error, client) ->
+      client.subscribe (clientDoc) ->
+        clientGroup.now.update clientDoc
+
     clientGroup
 
 exports.extendNowjs = (now) ->

@@ -44,7 +44,8 @@ exports.setupPubSub = ->
       # setup publishing
       schema.post 'save', (next) ->
         if publishers[model.modelName]?[@_id]
-          func(@) for func in publishers[model.modelName][@_id]
+          for func in publishers[model.modelName][@_id]
+            func(@)
 
       model.prototype.subscribe = (func) ->
         if publishers[model.modelName] == undefined
