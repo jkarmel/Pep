@@ -13,7 +13,8 @@ _ = require 'underscore'
 {ClientGroup, newClientGroup, extendNowjs} = require '../../now'
 
 describe 'extendNowjs', ->
-  nowMock = {getGroup: -> {now : {}} }
+  spy = sinon.spy()
+  nowMock = {getGroup: -> {now : {update: spy}} }
   extendNowjs nowMock
 
   describe 'newClientGroup', ->
@@ -24,6 +25,7 @@ describe 'extendNowjs', ->
         group.now.setemail feelWellAdress, ->
           Client.findOne {_id: group._id}, (error, client) ->
             client.email.should.equal feelWellAdress
+            spy.should.have.been.calledOnce
             done()
 
   describe 'getClientGroup', ->
