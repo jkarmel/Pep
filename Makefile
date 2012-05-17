@@ -11,6 +11,12 @@ setup:
 setup-front-end-testing:
 	# Link javascripts in public to test directory
 	ln -s public/javascripts/ test/public/javascripts
+	# Link public necessary test files from node_modules to ensure things
+	# are up to date
+	mkdir test/public/vendor
+	ln -s node_modules/sinon/ test/public/vendor/sinon
+	ln -s node_modules/chai/chai.js test/public/vendor/chai.js
+	ln -s node_modules/sinon-chai/lib/sinon-chai.js test/public/vendor/sinon-chai.js
 	# Copy over vendor libaries mocha, chai and coffeescript from node modules
 	npm install
 	mkdir test/public/vendor

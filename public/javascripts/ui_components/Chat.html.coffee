@@ -3,6 +3,8 @@ define ["/javascripts/vendor/space-pen.js"], ->
     @content = ->
       @div ".chat", =>
         @div ".messages", outlet: "messages", ""
+        @div '.composer', outlet: 'composer', =>
+          @textarea keypress: 'sendMessage'
 
     initialize: (@now) ->
       now.subscribers.push @render
@@ -16,3 +18,8 @@ define ["/javascripts/vendor/space-pen.js"], ->
     addMessage: (message) ->
       @messages.append $$ ->
         @div ".message", message.body
+
+    sendMessage: (event, element) =>
+      if event.which == $.ui.keyCode.ENTER && !event.shiftKey && /\S/.test(element.val())
+        @now.addMessage element.val(), => element.val("")
+

@@ -3,7 +3,10 @@ describe "Chat", ->
   window.now  = {subscribers: []}
 
   before (done) ->
-    require ["/javascripts/ui_components/chat.html.js", 'javascripts/now/client.js'], (ChatModule)->
+    require [
+      '/javascripts/ui_components/chat.html.js'
+      '/javascripts/now/client.js'
+    ], (ChatModule)->
       Chat = ChatModule
       done()
 
@@ -45,4 +48,15 @@ describe "Chat", ->
       chat.messages.find(":contains('message')").length.should.equal 11
       chat.messages.find(":contains('#{lastMessageText}')").length
         .should.equal 1
+
+    it 'has a composer that fires now.addMessage on enter', ->
+      chat.composer.should.exist
+
+      now.addMessage = sinon.spy()
+      chat.composer.children().html('some text')
+
+      chat.composer.children()
+        .trigger $.Event('keypress', keyCode: $.ui.keyCode.ENTER, which: 13)
+      now.addMessage.should.have.been.calledOnce
+      now.addMessage.should.have.been.calledWith('some text')
 
