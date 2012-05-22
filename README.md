@@ -62,23 +62,17 @@ a {
 
 To get up and running with the project you will need to do the following:
 
- * Install [node](http://nodejs.org/#download) and [npm](http://npmjs.org/).
- * Install supervisor via `npm install -g supervisor` (make sure npm's bin folder is in your PATH).
- * Install foreman via `[sudo] gem install foreman`.
- * Install [mongodb](http://www.mongodb.org/display/DOCS/Quickstart+OS+X).
- * Checkout the source code and run `npm install`.
- * `make setup`
+ * Run `script/setup`
 
-***TODO***: Write a script to do installations
+That's it, really.
 
 ## Running
 
-To run the app simply use `make run` or `make watch` (if you want the server to update when changes happen)
+To run the app simply use `babushka run` or `babushka watch` (if you want the server to update when changes happen)
 
 ## Tests
 
-The tests are written in [mocha](http://visionmedia.github.com/mocha/) and follow BDD convention. Use `make test` to run them.  
-**NOTE:** If you add a new directory under tests, you will have to add them to the Makefile (***TODO:*** Write a script to programmatically do this)
+The tests are written in [mocha](http://visionmedia.github.com/mocha/) and follow BDD convention. Use `babushka test` to run them.
 
 ## Technology Stack
 

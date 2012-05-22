@@ -20,3 +20,5 @@ if `babushka`.nil?
 else
   puts '-- You\'re all setup with Babushka. You can perform any dev jobs with it!'
 end
+
+system 'babushka setup'
