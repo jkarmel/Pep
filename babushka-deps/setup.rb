@@ -6,8 +6,14 @@ def resource?(path)
   File.exists? path or File.symlink? path 
 end
 
-def ln_if_dne(source, destination)
-  `ln -s #{Dir.pwd + '/' + source} #{destination}` unless resource? destination
+def get_resource_if_dne(source, destination)
+  unless resource? source
+    if /^http/.match source
+      `wget -O #{destination} #{source}`
+    else
+      `ln -s #{Dir.pwd + '/' + source} #{destination}`
+    end
+  end
 end
 
 dep 'mongodb' do
@@ -111,7 +117,7 @@ dep 'setup.testing' do
     ['node_modules/mocha/mocha.js', 'test/public/vendor/mocha.js'],
     ['node_modules/mocha/mocha.css', 'test/public/vendor/mocha.css'],
     ['node_modules/chai/chai.js', 'test/public/vendor/chai.js'],
-    ['node_modules/sinon/lib/sinon.js', 'test/public/vendor/sinon.js'],
+    ['http://sinonjs.org/releases/sinon-1.3.4.js', 'test/public/vendor/sinon.js'],
     ['node_modules/sinon-chai/lib/sinon-chai.js', 'test/public/vendor/sinon-chai.js']
   ]
 
@@ -122,7 +128,7 @@ dep 'setup.testing' do
   meet {
     mkdir_if_dne 'test/public/vendor'
     TESTING_RESOURCES.each do |resource|
-      ln_if_dne resource[0], resource[1]
+      get_resource_if_dne resource[0], resource[1]
     end
   }
 end
