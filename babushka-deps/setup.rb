@@ -117,6 +117,7 @@ dep 'setup.testing' do
     ['node_modules/mocha/mocha.js', 'test/public/vendor/mocha.js'],
     ['node_modules/mocha/mocha.css', 'test/public/vendor/mocha.css'],
     ['node_modules/chai/chai.js', 'test/public/vendor/chai.js'],
+    # TODO: Check the npm package version and pull that one!
     ['http://sinonjs.org/releases/sinon-1.3.4.js', 'test/public/vendor/sinon.js'],
     ['node_modules/sinon-chai/lib/sinon-chai.js', 'test/public/vendor/sinon-chai.js']
   ]
