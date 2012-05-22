@@ -1,6 +1,5 @@
 node_modules/
-test/public/javascripts
-test/public/vendor
+test/javascripts/resources
 .idea/
 .env
 *.js

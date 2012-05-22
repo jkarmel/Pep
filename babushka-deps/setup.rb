@@ -1,13 +1,13 @@
 def mkdir_if_dne(path)
-  Dir.mkpath path unless Dir.exists? path
+  Dir.mkdir path unless Dir.exists? path
 end
 
 def resource?(path)
-  File.exists? path or File.symlink? path 
+  File.exists? path or File.symlink? path
 end
 
 def get_resource_if_dne(source, destination)
-  unless resource? source
+  unless resource? destination
     if /^http/.match source
       `wget -O #{destination} #{source}`
     else
@@ -112,22 +112,25 @@ dep 'mongodb.dev' do
 end
 
 dep 'setup.testing' do
+  RESOURCES_DIR = "test/javascripts/resources"
+
   TESTING_RESOURCES = [
-    ['public/javascripts/', 'test/public/javascripts'],
-    ['node_modules/mocha/mocha.js', 'test/public/vendor/mocha.js'],
-    ['node_modules/mocha/mocha.css', 'test/public/vendor/mocha.css'],
-    ['node_modules/chai/chai.js', 'test/public/vendor/chai.js'],
+    ['public/javascripts/', "#{RESOURCES_DIR}/javascripts"],
+    ['node_modules/mocha/mocha.js', "#{RESOURCES_DIR}/support/mocha.js"],
+    ['node_modules/mocha/mocha.css', "#{RESOURCES_DIR}/support/mocha.css"],
+    ['node_modules/chai/chai.js', "#{RESOURCES_DIR}/support/chai.js"],
     # TODO: Check the npm package version and pull that one!
-    ['http://sinonjs.org/releases/sinon-1.3.4.js', 'test/public/vendor/sinon.js'],
-    ['node_modules/sinon-chai/lib/sinon-chai.js', 'test/public/vendor/sinon-chai.js']
+    ['http://sinonjs.org/releases/sinon-1.3.4.js', "#{RESOURCES_DIR}/support/sinon.js"],
+    ['node_modules/sinon-chai/lib/sinon-chai.js', "#{RESOURCES_DIR}/support/sinon-chai.js"]
   ]
 
   requires 'npm.refresh'
   met? {
-    TESTING_RESOURCES.inject(true) { |all_exist, resource| all_exist and resource? resource[1] }
+    TESTING_RESOURCES.all? { |resource| resource? resource[1] }
   }
   meet {
-    mkdir_if_dne 'test/public/vendor'
+    mkdir_if_dne RESOURCES_DIR
+    mkdir_if_dne "#{RESOURCES_DIR}/support"
     TESTING_RESOURCES.each do |resource|
       get_resource_if_dne resource[0], resource[1]
     end
