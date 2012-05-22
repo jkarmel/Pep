@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+
+puts '- Setting up your dev environment!'
+
+if Dir.exists? '/local'
+  puts '-- /local folder exists!'
+else
+  puts '-- Creating /local folder, INSTALL BABUSHKA IN THIS FOLDER [/local/babushka]'
+  Dir.mkdir '/local' 
+end
+
+unless /:\/local\/bin/.match ENV['PATH']
+  ENV['PATH'] += ':/local/bin'
+  puts '--- Please put \'/local/bin\' in your $PATH'
+end
+
+if `babushka`.nil?
+  puts '-- Installing Babushka -- it will let perform any dev job\n\n'
+  system 'bash -c "`curl babushka.me/up`"'
+else
+  puts '-- You\'re all setup with Babushka. You can perform any dev jobs with it!'
+end
