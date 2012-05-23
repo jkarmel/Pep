@@ -1,9 +1,8 @@
 casper = require('casper').create(
-  verbose: true,
-  loadImages: true,
-  loadPlugins: true,
-  logLevel: 'debug'
-  onAlert: -> console.log 'POOP'
+#  verbose: true,
+#  loadImages: true,
+#  loadPlugins: true,
+#  logLevel: 'debug'
 )
 
 casper.start 'http://localhost:1337/'

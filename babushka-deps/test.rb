@@ -1,10 +1,18 @@
+def with_running(command, wait = 0)
+  pid = fork {exec command}
+  sleep wait
+  yield
+  `kill #{pid}`
+end
+
+TEST_APP_COMMAND = "coffee test/javascripts/app.coffee"
+
 dep 'test.browser' do
-  COMMAND = "coffee test/javascripts/app.coffee"
 
   met? {
     processes = `ps -ef | grep "coffee"`.split(/\n/)
     processes.any? do |process|
-      process[/#{COMMAND}/]
+      process[/#{TEST_APP_COMMAND}/]
     end
   }
   meet {
@@ -12,7 +20,7 @@ dep 'test.browser' do
       sleep(1)
       `open http://localhost:1337`
     end
-    system COMMAND
+    system TEST_APP_COMMAND
   }
 end
 
@@ -24,7 +32,9 @@ dep 'test.client' do
     is_run
   }
   meet {
-    system "casperjs test/javascripts/all.spec.coffee"
+    with_running(TEST_APP_COMMAND, 1) do
+      system "casperjs test/javascripts/all.spec.coffee"
+    end
     is_run = true
   }
 end
