@@ -8,7 +8,6 @@ end
 TEST_APP_COMMAND = "coffee test/javascripts/app.coffee"
 
 dep 'test.browser' do
-
   met? {
     processes = `ps -ef | grep "coffee"`.split(/\n/)
     processes.any? do |process|
@@ -24,29 +23,20 @@ dep 'test.browser' do
   }
 end
 
-dep 'test.client' do
-  is_run = false
+dep 'test.client.task' do
   requires 'casperjs'
 
-  met? {
-    is_run
-  }
-  meet {
+  run {
     with_running(TEST_APP_COMMAND, 1) do
       system "casperjs test/javascripts/all.spec.coffee"
     end
-    is_run = true
   }
 end
 
-dep 'test.backend' do
+dep 'test.backend.task' do
   requires 'mongodb.start'
-  is_run = false
 
-  met? {
-    is_run
-  }
-  meet {
+  run {
     test_dirs = ""
     Dir.foreach 'test' do |resource|
       unless resource[/\./] or resource == 'javascripts'
@@ -55,17 +45,9 @@ dep 'test.backend' do
     end
 
     system "MONGOHQ_URL=mongodb://localhost/feelwelllabs/test ./node_modules/.bin/mocha #{test_dirs}"
-    is_run = true
   }
 end
 
 dep 'test' do
-  is_run = false
-  requires 'test.client', 'test.backend'
-  met? {
-    is_run
-  }
-  meet {
-    is_run = true
-  }
+  requires 'test.client.task', 'test.backend.task'
 end

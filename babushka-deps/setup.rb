@@ -26,18 +26,12 @@ dep 'logs' do
   }
 end
 
-# Always run this once
 # TODO: How can we figure out whether to run this or not? Use `npm outdated`
-dep 'npm.refresh' do
-  refresh = false
+dep 'npm.refresh.task' do
   requires 'core:nodejs.src', 'core:npm'
-  met? {
-   refresh 
-  }
-  meet {
+  run {
     `npm install`
     `npm update`
-    refresh = true
   }
 end
 
@@ -103,7 +97,7 @@ dep 'setup.testing' do
     ['node_modules/sinon-chai/lib/sinon-chai.js', "#{RESOURCES_DIR}/support/sinon-chai.js"]
   ]
 
-  requires 'npm.refresh', 'casperjs'
+  requires 'npm.refresh.task', 'casperjs'
   met? {
     TESTING_RESOURCES.all? { |resource| resource? resource[1] }
   }
@@ -118,12 +112,6 @@ end
 
 dep 'setup' do
   requires 'core:homebrew', 'core:git', 'core:nodejs.src', 'core:npm', 'mongodb',
-           'logs', 'npm.refresh', 'supervisor', 'foreman', 'mongodb.dev',
+           'logs', 'npm.refresh.task', 'supervisor', 'foreman', 'mongodb.dev',
            'setup.testing', 'coffee-script'
-  met? {
-    true
-  }
-  meet {
-
-  }
 end
