@@ -12,7 +12,7 @@ should = chai.should()
 describe 'Client', ->
   client = null
 
-  beforeEach (done)->
+  beforeEach (done) ->
     Client.collection.drop()
     client = new Client
       name:
@@ -22,22 +22,22 @@ describe 'Client', ->
       phone: '9178873997'
     client.save(done)
 
-  it 'finds clients', (done)->
-    Client.findOne().where( 'name.first', 'Jeremy').run (error, jeremy)->
+  it 'finds clients', (done) ->
+    Client.findOne().where( 'name.first', 'Jeremy').run (error, jeremy) ->
       jeremy.name.first.should.equal 'Jeremy'
       jeremy.name.last.should.equal 'Karmel'
       jeremy.email.should.equal 'jkarmel@me.com'
       jeremy.phone.should.equal '9178873997'
       done()
 
-  it 'contains multiple conversations', (done)->
+  it 'contains multiple conversations', (done) ->
     convos = (new Conversation for i in [0...10])
     for convo in convos
       convo.messages.push (new Message body: 'text') for i in [0...10]
       client.conversations.push convo
 
-    client.save (error)->
-      Client.findOne {}, (error)->
+    client.save (error) ->
+      Client.findOne {}, (error) ->
         client.conversations.length.should.be.equal 10
 
         done()
@@ -45,7 +45,7 @@ describe 'Client', ->
 describe 'Conversation', ->
   conversation = null
 
-  beforeEach (done)->
+  beforeEach (done) ->
     Conversation.collection.drop()
     conversation = new Conversation
 
@@ -53,24 +53,24 @@ describe 'Conversation', ->
       message = new Message body: 'text'
       conversation.messages.push message
 
-    conversation.save (error)->
+    conversation.save (error) ->
       done()
 
-  it 'contains many messages', (done)->
+  it 'contains many messages', (done) ->
     conversation.messages.length.should.equal 10
     done()
 
 
 describe 'Message', ->
 
-  beforeEach (done)->
+  beforeEach (done) ->
     Message.collection.drop()
     message = new Message
       body: 'Main text'
     message.save(done)
 
-  it 'sets createdAt to now by default', (done)->
-    Message.findOne {}, (error, message)->
+  it 'sets createdAt to now by default', (done) ->
+    Message.findOne {}, (error, message) ->
       oneSecond = 1000
       now = new Date
       timeSinceCreated = now.getTime() - message.createdAt.getTime()
@@ -91,7 +91,7 @@ describe 'setupPubSub', ->
     spy = sinon.spy()
 
     conversation.subscribe spy
-    conversation.save (error)->
+    conversation.save (error) ->
       spy.calledOnce.should.be.true
       done()
 

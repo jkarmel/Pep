@@ -69,7 +69,7 @@ everyone = nowjs.initialize app, nowSettings
 
 require('./now').extendNowjs(nowjs)
 
-everyone.now.newClient = (callback)->
+everyone.now.newClient = (callback) ->
   nowjs.newClientGroup (group) =>
     group.addUser @user.clientId
     callback?()

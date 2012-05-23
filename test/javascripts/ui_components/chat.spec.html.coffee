@@ -6,7 +6,7 @@ describe "Chat", ->
     require [
       '/javascripts/ui_components/chat.html.js'
       '/javascripts/now/client.js'
-    ], (ChatModule)->
+    ], (ChatModule) ->
       Chat = ChatModule
       done()
 

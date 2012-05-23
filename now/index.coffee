@@ -12,11 +12,11 @@ clientGroupProperties =
     clientGroup = @getGroup "client##{clientId}"
     clientGroup._id = clientId
 
-    clientGroup.now.addMessage = (body, callback)->
-      Client.findOne {_id : clientId}, (error, client)->
+    clientGroup.now.addMessage = (body, callback) ->
+      Client.findOne {_id : clientId}, (error, client) ->
         messages = client.conversations[client.conversations.length - 1].messages
         messages.push new Message body: body
-        client.save (error, doc)->
+        client.save (error, doc) ->
           callback?()
 
     writableFields = 'email phone'.split /\s+/
@@ -26,7 +26,7 @@ clientGroupProperties =
         clientGroup.now["set#{field}"] = (entry, callback) ->
           Client.findOne {_id : clientId}, (error, client) ->
             client[field] = entry
-            client.save (error, doc)->
+            client.save (error, doc) ->
               callback()
 
     Client.findOne {_id: clientId}, (error, client) ->
