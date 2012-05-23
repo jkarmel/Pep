@@ -1,4 +1,4 @@
-mongoose = require 'mongoose'
+exports.mongoose = mongoose = require 'mongoose'
 mongoose.connect process.env.MONGOHQ_URL, (error) ->
   if error
     console.error "Could not connect to MongoDB"
@@ -23,36 +23,30 @@ ClientSchema = new Schema
   phone: String
   conversations: [ConversationSchema]
 
-
 exports.Client = Client = mongoose.model 'Client', ClientSchema
 exports.Conversation = Conversation = mongoose.model 'Conversation', ConversationSchema
 exports.Message = Message = mongoose.model 'Message', MessageSchema
 
-SchemaModelPairs = [
-  [ConversationSchema, Conversation]
-  [MessageSchema, Message]
-  [ClientSchema, Client]
-]
-
-publishers = {}
-exports.setupPubSub = ->
-
-  #Publish on save
-  for [schema, model] in SchemaModelPairs
-    do (schema, model) ->
-
-      # setup publishing
-      schema.post 'save', (next) ->
-        if publishers[model.modelName]?[@_id]
-          for func in publishers[model.modelName][@_id]
+# Allows listening to changes on specified models.
+# TODO: This might not scale to multiple boxes
+pubsToSubs = {}
+exports.setupPubSub = setupPubSub = (models) ->
+  # Publish on save
+  for model in models
+    do (model) ->
+      model.schema.post 'save', (next) ->
+        if pubsToSubs[model.modelName]?[@_id]
+          for func in pubsToSubs[model.modelName][@_id]
             func(@)
 
       model.prototype.subscribe = (func) ->
-        if publishers[model.modelName] == undefined
-          publishers[model.modelName] = {}
-        if  publishers[model.modelName][@_id] == undefined
-          publishers[model.modelName][@_id] = []
+        pubsToSubs[model.modelName] ?= {}
+        pubsToSubs[model.modelName][@_id] ?= []
 
-        publishers[model.modelName][@_id].push func
+        pubsToSubs[model.modelName][@_id].push func
 
-exports.clearSubs = -> publishers = {}
+exports.MODELS = MODELS = [ Conversation, Message, Client ]
+
+setupPubSub(MODELS)
+
+exports.clearSubs = -> pubsToSubs = {}
