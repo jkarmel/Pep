@@ -2,23 +2,23 @@
 
 puts '- Setting up your dev environment!'
 
-if Dir.exists? '/local'
-  puts '-- /local folder exists!'
+if Dir.exists? '/usr/local'
+  puts '-- /usr/local folder exists!'
 else
-  puts '-- Creating /local folder, INSTALL BABUSHKA IN THIS FOLDER [/local/babushka]'
-  Dir.mkdir '/local' 
+  puts '-- Creating /usr/local folder, INSTALL BABUSHKA IN THIS FOLDER [/usr/local/babushka]'
+  `sudo mkdir /usr/local`
 end
 
-unless /:\/local\/bin/.match ENV['PATH']
-  ENV['PATH'] += ':/local/bin'
-  puts '--- Please put \'/local/bin\' in your $PATH'
+unless /:\/usr\/local\/bin/.match ENV['PATH']
+  ENV['PATH'] += ':/usr/local/bin'
+  puts '--- Please put \'/usr/local/bin\' in your $PATH'
 end
 
 if `babushka`.nil?
   puts '-- Installing Babushka -- it will let perform any dev job\n\n'
-  system 'bash -c "`curl babushka.me/up`"'
+  system 'sudo bash -c "`curl babushka.me/up`"'
 else
   puts '-- You\'re all setup with Babushka. You can perform any dev jobs with it!'
 end
 
-system 'babushka setup'
+system 'sudo babushka setup'

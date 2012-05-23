@@ -11,35 +11,19 @@ def get_resource_if_dne(source, destination)
     if /^http/.match source
       `curl -O  #{source} > #{destination}`
     else
-      `ln -s #{source} #{destination}`
+      absolute_source = Dir.pwd + '/' + source
+      `ln -s #{absolute_source} #{destination}`
     end
   end
 end
 
 dep 'mongodb' do
-  VERSION = '2.0.5'
-  FLAVOR = "mongodb-osx-x86_64-#{VERSION}"
-  
+
   met? {
     which 'mongod' and which 'mongo' and Dir.exists? 'data/db'  
   }
   meet {
-    unless which 'mongod' and which 'mongo'
-      # Install Mongo
-      unless Dir.exists? "/local/mongodb-#{VERSION}"
-        Dir.chdir('/local') {
-          `curl http://fastdl.mongodb.org/osx/#{FLAVOR}.tgz > mongodb.tgz`
-          `tar xzf mongodb.tgz`
-          `mv #{FLAVOR} mongodb-#{VERSION}`  
-          
-          # Cleanup
-          `rm mongodb.tgz`
-        }
-      end
-
-      # Create a symbolic link to all executables
-      `ln -s /local/mongodb-#{VERSION}/bin/* /local/bin/`
-    end
+    `brew install mongodb` unless which 'mongod' and which 'mongo'
 
     # Create a place to store our local data
     mkdir_if_dne 'data'
@@ -57,7 +41,7 @@ dep 'logs' do
 end
 
 # Always run this once
-# TODO: How can we figure out whether to run this or not?
+# TODO: How can we figure out whether to run this or not? Use `npm outdated`
 dep 'npm.refresh' do
   refresh = false
   requires 'core:nodejs.src', 'core:npm'
@@ -69,11 +53,6 @@ dep 'npm.refresh' do
     `npm update`
     refresh = true
   }
-end
-
-dep 'phantomjs' do
-  met? {}
-  meet {`brew install phantomjs`}
 end
 
 dep 'supervisor' do
@@ -116,6 +95,11 @@ dep 'mongodb.dev' do
   }
 end
 
+dep 'phantomjs' do
+  met? { which 'phantomjs' }
+  meet { `brew install phantomjs` }
+end
+
 dep 'setup.testing' do
   RESOURCES_DIR = "test/javascripts/resources"
 
@@ -129,7 +113,7 @@ dep 'setup.testing' do
     ['node_modules/sinon-chai/lib/sinon-chai.js', "#{RESOURCES_DIR}/support/sinon-chai.js"]
   ]
 
-  requires 'npm.refresh'
+  requires 'npm.refresh', 'phantomjs'
   met? {
     TESTING_RESOURCES.all? { |resource| resource? resource[1] }
   }
@@ -142,10 +126,8 @@ dep 'setup.testing' do
   }
 end
 
-# TODO: Do everything in /local, right now nodejs and git installed to /usr/local 
-# (which requires a password and is annoying) 
 dep 'setup' do
-  requires 'core:git', 'core:nodejs.src', 'core:npm', 'mongodb', 
+  requires 'core:homebrew', 'core:git', 'core:nodejs.src', 'core:npm', 'mongodb',
            'logs', 'npm.refresh', 'supervisor', 'foreman', 'mongodb.dev',
            'setup.testing', 'coffee-script'
   met? {
