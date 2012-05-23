@@ -12,6 +12,29 @@ def mongo_running?
   !mongo_processes.empty?
 end
 
+dep 'mongodb' do
+  met? {
+    which 'mongod' and which 'mongo' and Dir.exists? 'data/db'
+  }
+  meet {
+    `brew install mongodb` unless which 'mongod' and which 'mongo'
+
+    # Create a place to store our local data
+    mkdir_if_dne 'data'
+    mkdir_if_dne 'data/db'
+  }
+end
+
+# TODO: Not a very good setup, but eh works for now. Refactor later.
+dep 'mongodb.dev' do
+  met? {
+    File.exists? '.env'
+  }
+  meet {
+    `echo 'MONGOHQ_URL=mongodb://localhost/feelwelllabs/dev' > .env`
+  }
+end
+
 dep 'mongodb.start' do
   requires 'logs', 'mongodb', 'mongodb.dev'
   met? {
