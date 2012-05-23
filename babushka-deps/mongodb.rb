@@ -26,7 +26,7 @@ dep 'mongodb' do
 end
 
 # TODO: Not a very good setup, but eh works for now. Refactor later.
-dep 'mongodb.dev' do
+dep 'mongodb-dev' do
   met? {
     File.exists? '.env'
   }
@@ -35,8 +35,8 @@ dep 'mongodb.dev' do
   }
 end
 
-dep 'mongodb.start' do
-  requires 'logs', 'mongodb', 'mongodb.dev'
+dep 'mongodb-start' do
+  requires 'logs', 'mongodb', 'mongodb-dev'
   met? {
     mongo_running?
   }
@@ -45,7 +45,7 @@ dep 'mongodb.start' do
   }
 end
 
-dep 'mongodb.stop' do
+dep 'mongodb-stop' do
   met? {
     !mongo_running?
   }
@@ -58,13 +58,6 @@ dep 'mongodb.stop' do
   }
 end
 
-dep 'mongodb.restart' do
-  refresh = false
-  requires 'mongodb.stop', 'mongodb.start'
-  met? {
-    refresh = false
-  }
-  meet {
-    refresh = true
-  }
+dep 'mongodb-restart' do
+  requires 'mongodb-stop', 'mongodb-start'
 end

@@ -27,7 +27,7 @@ dep 'logs' do
 end
 
 # TODO: How can we figure out whether to run this or not? Use `npm outdated`
-dep 'npm.refresh.task' do
+dep 'npm-refresh.task' do
   requires 'core:nodejs.src', 'core:npm'
   run {
     `npm install`
@@ -84,7 +84,7 @@ dep 'casperjs' do
   }
 end
 
-dep 'setup.testing' do
+dep 'setup-testing' do
   RESOURCES_DIR = "test/javascripts/resources"
 
   TESTING_RESOURCES = [
@@ -97,7 +97,7 @@ dep 'setup.testing' do
     ['node_modules/sinon-chai/lib/sinon-chai.js', "#{RESOURCES_DIR}/support/sinon-chai.js"]
   ]
 
-  requires 'npm.refresh.task', 'casperjs'
+  requires 'npm-refresh.task', 'casperjs'
   met? {
     TESTING_RESOURCES.all? { |resource| resource? resource[1] }
   }
@@ -112,6 +112,6 @@ end
 
 dep 'setup' do
   requires 'core:homebrew', 'core:git', 'core:nodejs.src', 'core:npm', 'mongodb',
-           'logs', 'npm.refresh.task', 'supervisor', 'foreman', 'mongodb.dev',
-           'setup.testing', 'coffee-script'
+           'logs', 'npm-refresh.task', 'supervisor', 'foreman', 'mongodb-dev',
+           'setup-testing', 'coffee-script'
 end

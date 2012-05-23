@@ -11,7 +11,7 @@ def ping
 end
 
 dep 'run' do
-  requires 'foreman', 'mongodb.start'
+  requires 'foreman', 'mongodb-start'
   met? {
     ping
   }
@@ -21,7 +21,7 @@ dep 'run' do
 end
 
 dep 'watch' do
-  requires 'foreman', 'supervisor', 'mongodb.start'
+  requires 'foreman', 'supervisor', 'mongodb-start'
   met? {
     ping
   }

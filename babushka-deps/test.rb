@@ -34,7 +34,7 @@ dep 'test.client.task' do
 end
 
 dep 'test.backend.task' do
-  requires 'mongodb.start'
+  requires 'mongodb-start'
 
   run {
     test_dirs = ""
