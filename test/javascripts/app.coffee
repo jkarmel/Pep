@@ -46,9 +46,18 @@ app.get '/', (req, res) ->
         script src: "/support/sinon-chai.js"
         script src: "/javascripts/vendor/require.min.js"
         script src: "/chat.spec.html.js"
+
         coffeescript ->
           $ ->
-            mocha.run().globals ['View', '$$', '$$$']
+            mocha.run( -> window.TESTS_COMPLETE = true)
+              .globals [
+                'View'
+                '$$'
+                '$$$'
+                'create'
+                'ClientUtils'
+                '__utils__'
+              ]
       body ->
         div "#mocha", ""
   res.end()

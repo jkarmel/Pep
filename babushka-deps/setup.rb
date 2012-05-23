@@ -100,6 +100,20 @@ dep 'phantomjs' do
   meet { `brew install phantomjs` }
 end
 
+dep 'casperjs' do
+  VERSION = '0.6.8'
+
+  met? { which 'casperjs' }
+  meet {
+    mkdir_if_dne '/usr/local/casperjs'
+    Dir.chdir('/usr/local/casperjs') {
+      sudo "git clone git://github.com/n1k0/casperjs.git ."
+      sudo "git checkout tags/#{VERSION}"
+      sudo "ln -sf `pwd`/bin/casperjs /usr/local/bin/casperjs"
+    }
+  }
+end
+
 dep 'setup.testing' do
   RESOURCES_DIR = "test/javascripts/resources"
 
@@ -113,7 +127,7 @@ dep 'setup.testing' do
     ['node_modules/sinon-chai/lib/sinon-chai.js', "#{RESOURCES_DIR}/support/sinon-chai.js"]
   ]
 
-  requires 'npm.refresh', 'phantomjs'
+  requires 'npm.refresh', 'casperjs'
   met? {
     TESTING_RESOURCES.all? { |resource| resource? resource[1] }
   }

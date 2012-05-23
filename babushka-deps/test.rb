@@ -18,12 +18,13 @@ end
 
 dep 'test.client' do
   is_run = false
+  requires 'casperjs'
 
   met? {
     is_run
   }
   meet {
-    system "./node_modules/.bin/mocha -t 10000 test/javascripts/all.spec.coffee"
+    system "casperjs test/javascripts/all.spec.coffee"
     is_run = true
   }
 end
