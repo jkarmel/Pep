@@ -8,6 +8,7 @@ chai.use sinonChai
 should = chai.should()
 
 _ = require 'underscore'
+_.str = require 'underscore.string'
 
 {Client, Conversation, Message} = require '../../models'
 {ClientGroup, newClientGroup, extendNowjs} = require '../../now'
@@ -22,7 +23,7 @@ describe 'extendNowjs', ->
     it 'can create a new client group',  (done) ->
       nowMock.newClientGroup (group) ->
         feelWellAdress = 'jeremy@feelwelllabs.com'
-        group.now.setemail feelWellAdress, ->
+        group.now.setEmail feelWellAdress, ->
           Client.findOne {_id: group._id}, (error, client) ->
             client.email.should.equal feelWellAdress
             spy.should.have.been.calledOnce
@@ -62,8 +63,8 @@ describe 'extendNowjs', ->
 
     for field in writableFields
       do (field) ->
-        it "can write to #{field}", (done) ->
-          methodName = "set#{field}"
+        methodName = "set#{_.str.capitalize field}"
+        it "can write to #{field} through now method #{methodName}", (done) ->
           clientGroup.now.should.respondTo methodName
           fakeEntry = "fake #{field}"
           clientGroup.now[methodName] fakeEntry, ->

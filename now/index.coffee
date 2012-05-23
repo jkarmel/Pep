@@ -1,6 +1,9 @@
 {Client, Message, Conversation} = require "../models"
 {extend} = require '../utils'
 
+_ = require 'underscore'
+_.str = require 'underscore.string'
+
 clientGroupProperties =
   newClientGroup: (callback) ->
     client = new Client
@@ -23,7 +26,7 @@ clientGroupProperties =
 
     for field in writableFields
       do (field) ->
-        clientGroup.now["set#{field}"] = (entry, callback) ->
+        clientGroup.now["set#{_.str.capitalize field}"] = (entry, callback) ->
           Client.findOne {_id : clientId}, (error, client) ->
             client[field] = entry
             client.save (error, doc) ->
