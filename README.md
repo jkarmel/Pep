@@ -1,17 +1,17 @@
 # Lift
 
-A fast and convient service for Feeling Good
+Discover yourself, be free.
 
 ## Development Guide
 
 When developing follow these simple rules:
 
  * **100% Test Coverage** - Every piece of code should be tested rigorously.
- * **Use Libraries** - Use open source libraries, it's faster and better than writing it ourselves.
- * **Simplicity** - Only write as much code as necessary to complete the task (but still high quality).
+ * **Use Libraries** - Use open source libraries, it's faster and better than writing it ourselves!
+ * **Simplicity** - Write as much high quality code as necessary to complete the task.
  * **Refactor** - When working with code a second time, refactor as necessary to keep the quality and abstraction high.
- * **Pair** - 66% of your development should be spent pairing. It's fun, social, and a great learning experience.
- * **Enjoy It** - If you aren't enjoying working in this code base, then we're doing something wrong.
+ * **Pair** - 66% of your development should be spent pairing. It's fun, social, and a great learning experience. Why not!
+ * **Enjoy It** - Most importantly, if you aren't enjoying working in this code base, then we're doing something wrong.
 
 ## Style Guide
 
@@ -29,6 +29,11 @@ app.configure ->
     enable: [ 'coffeescript' ]
 
 now.configure(poop).run 3000
+
+tests = [
+  "a",
+  "b"
+]
 ```
 
 ### Less
@@ -64,15 +69,19 @@ To get up and running with the project you will need to do the following:
 
  * Run `script/setup`
 
-That's it, really.
+That's it, really. We're not kidding.
 
 ## Running
 
-To run the app simply use `babushka run` or `babushka watch` (if you want the server to update when changes happen)
+To run the app simply use `babushka run` or, if you want the server to update when changes happen, `babushka watch`.
 
 ## Tests
 
-The tests are written in [mocha](http://visionmedia.github.com/mocha/) and follow BDD convention. Use `babushka test` to run them.
+The tests are written in [mocha](http://visionmedia.github.com/mocha/) and follow BDD convention. Use `babushka test` to run all of them.
+
+ * `babushka test.browser` - Starts our test server and opens up page in your favorite browser to run the client-side tests.
+ * `babushka test.client` - Runs all client-side tests automatically using a headless Webkit.
+ * `babushka test.backend` - Runs all server tests.
 
 ## Technology Stack
 
