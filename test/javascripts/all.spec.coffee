@@ -11,16 +11,26 @@ casper.start 'http://localhost:1337/'
 casper.waitFor (->
     this.getGlobal 'TESTS_COMPLETE'
   ), (->
-    numFailures = parseInt this.fetchText('.failures em')
+    results = this.evaluate ->
+      results = { passed : [], failed : [] }
+      $('.test.fail h2').each (index, element) ->
+        results.failed.push $(element).text()
 
-    console.log '\n\t\t---------------------------'
-    console.log '\t\tIMPORTANT STUFF HERE       '
-    console.log '\t\t---------------------------'
-    console.log '\t\tFailures: ', numFailures
-    console.log '\t\tPasses: ' , this.fetchText('.passes em')
+      $('.test.pass h2').each (index, element) ->
+        results.passed.push $(element).text()
+
+      results
+
+    console.log '\n\t\tFailures: ', results.failed.length
+    console.log '\t\tPasses: ' , results.passed.length
     console.log '\t\tDuration: ', this.fetchText('.duration em') + 's\n'
 
-    this.test.assertEquals numFailures, 0
+    for test in results.passed
+      casper.test.assert true, test
+
+    for test in results.failed
+      casper.test.assert false, test
+
   ),(-> console.log "TIMED OUT"), 10000
 
 casper.run ->
