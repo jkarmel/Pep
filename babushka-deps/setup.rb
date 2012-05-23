@@ -9,9 +9,9 @@ end
 def get_resource_if_dne(source, destination)
   unless resource? destination
     if /^http/.match source
-      `wget -O #{destination} #{source}`
+      `curl -O  #{source} > #{destination}`
     else
-      `ln -s #{Dir.pwd + '/' + source} #{destination}`
+      `ln -s #{source} #{destination}`
     end
   end
 end
@@ -69,6 +69,11 @@ dep 'npm.refresh' do
     `npm update`
     refresh = true
   }
+end
+
+dep 'phantomjs' do
+  met? {}
+  meet {`brew install phantomjs`}
 end
 
 dep 'supervisor' do
