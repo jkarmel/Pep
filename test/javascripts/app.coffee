@@ -15,11 +15,16 @@ app.configure ->
     src: __dirname + '/ui_components'
     enable: [ 'coffeescript' ]
 
+  app.use express.compiler
+    src: __dirname + '/entry_point'
+    enable: [ 'coffeescript' ]
+
   app.use app.router
 
   # Serve public files statically
   app.use express.static(__dirname + '/resources')
   app.use express.static(__dirname + '/ui_components')
+  app.use express.static(__dirname + '/entry_point')
 
 app.configure 'development', ->
   app.use express.errorHandler
@@ -42,10 +47,15 @@ app.get '/', (req, res) ->
         coffeescript ->
           chai.should()
           mocha.setup("bdd")
+          window.Testable = {}
 
+        script src: "/support/chai-jquery.js"
         script src: "/support/sinon-chai.js"
         script src: "/javascripts/vendor/require.min.js"
+        script src: "/support/stubs.js"
+
         script src: "/chat.spec.html.js"
+        script src: "/index.spec.js"
 
         coffeescript ->
           $ ->
@@ -60,6 +70,7 @@ app.get '/', (req, res) ->
               ]
       body ->
         div "#mocha", ""
+        div "#content", ""
   res.end()
 
 port = 1337

@@ -11,12 +11,23 @@ casper.waitFor (->
     this.getGlobal 'TESTS_COMPLETE'
   ), (->
     results = this.evaluate ->
+      pretty = ($element) ->
+        s = $element.clone().children().remove().end().text()
+        $duration = $element.find('span')
+        s += " [#{$duration.text()}]" if $duration.length
+        s
+
       results = { passed : [], failed : [] }
-      $('.test.fail h2').each (index, element) ->
-        results.failed.push $(element).text()
+      $('.test.fail').each (index, element) ->
+        $element = $(element)
+        s = pretty $element.find('h2')
+
+        $error = $element.find('.error')
+        s += " \n\n\t#{$error.text()}\n" if $error.length
+        results.failed.push s
 
       $('.test.pass h2').each (index, element) ->
-        results.passed.push $(element).text()
+        results.passed.push pretty $(element)
 
       results
 

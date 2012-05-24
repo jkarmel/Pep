@@ -1,10 +1,20 @@
-require ['/javascripts/ui_components/Chat.html.js', '/javascripts/now/client.js'], (Chat) ->
-  $(document).ready ->
-    now.ready ->
-      $('#start-button').click ->
-        $(document.body).html ''
-        now.newClient()
-        $(document.body).append $$ ->
-          @div '.overall', =>
-            @h1 'header'
-            @subview 'chat', new Chat now
+Index = {
+  setup: (Chat) ->
+    Index.Chat = Chat
+    $(document).ready ->
+      now.ready ->
+        Index.main()
+
+  main: ->
+    $('#start-button').click @loadChat
+
+  loadChat: =>
+    $('#content').html ''
+    now.newClient()
+    $('#content').append new Index.Chat now
+}
+
+require ['/javascripts/ui_components/chat.html.js', '/javascripts/now/client.js'],
+        Index.setup
+
+window.Testable?.Index = Index

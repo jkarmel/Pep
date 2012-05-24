@@ -9,7 +9,7 @@ end
 def get_resource_if_dne(source, destination)
   unless resource? destination
     if /^http/.match source
-      `curl -O  #{source} > #{destination}`
+      `wget -O #{destination} #{source}`
     else
       absolute_source = Dir.pwd + '/' + source
       `ln -s #{absolute_source} #{destination}`
@@ -94,7 +94,8 @@ dep 'setup-testing' do
     ['node_modules/chai/chai.js', "#{RESOURCES_DIR}/support/chai.js"],
     # TODO: Check the npm package version and pull that one!
     ['http://sinonjs.org/releases/sinon-1.3.4.js', "#{RESOURCES_DIR}/support/sinon.js"],
-    ['node_modules/sinon-chai/lib/sinon-chai.js', "#{RESOURCES_DIR}/support/sinon-chai.js"]
+    ['node_modules/sinon-chai/lib/sinon-chai.js', "#{RESOURCES_DIR}/support/sinon-chai.js"],
+    ['https://raw.github.com/chaijs/chai-jquery/master/chai-jquery.js', "#{RESOURCES_DIR}/support/chai-jquery.js"]
   ]
 
   requires 'npm-refresh.task', 'casperjs'

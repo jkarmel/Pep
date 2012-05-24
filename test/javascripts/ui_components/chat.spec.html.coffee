@@ -1,6 +1,5 @@
 describe "Chat", ->
   Chat = {}
-  window.now  = {subscribers: []}
 
   before (done) ->
     require [

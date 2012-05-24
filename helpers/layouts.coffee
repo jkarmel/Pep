@@ -19,9 +19,10 @@ exports.hardcode.application = (content) ->
 
       # Entry point for javascript loading on a page
       if content?.js
-        script "data-main": "javascripts/entry_point/#{content.js}", src: "/javascripts/vendor/require.min.js"
+        script "data-main": "/javascripts/entry_point/#{content.js}", src: "/javascripts/vendor/require.min.js"
 
       content?.head?()
 
     body ->
-      content?.body?()
+      div '#content', ->
+        content?.body?()
