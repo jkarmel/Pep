@@ -47,6 +47,7 @@ app.configure 'production', ->
 routes = require './routes'
 
 app.get '/', routes.index
+app.get '/style', routes.style
 
 port = process.env.PORT || 3000
 app.listen port
@@ -76,4 +77,3 @@ everyone.now.newClient = (callback) ->
 
 
 models = require './models'
-models.setupPubSub()
