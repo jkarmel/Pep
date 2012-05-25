@@ -29,5 +29,5 @@ describe "layout", ->
     $('head script[src="/nowjs/now.js"]').length.should.equal(1)
 
   it "uses require.js to load modules (if specified)", ->
-    $('head script[src="/javascripts/vendor/require.min.js"][data-main="javascripts/entry_point/main"]')
+    $('head script[src="/javascripts/vendor/require.min.js"][data-main="/javascripts/entry_point/main"]')
       .length.should.equal 1
