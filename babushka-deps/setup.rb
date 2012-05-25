@@ -10,7 +10,7 @@ def get_resource_if_dne(source, destination)
   unless resource? destination
     if /^http/.match source
       puts source, destination
-      `curl -O #{source} > #{destination}`
+      `curl #{source} > #{destination}`
     else
       absolute_source = Dir.pwd + '/' + source
       `ln -s #{absolute_source} #{destination}`
@@ -54,6 +54,15 @@ dep 'coffee-script' do
   meet {
     sudo 'npm install -g coffee-script'
   }
+end
+
+dep 'add-to-path' do 
+  ["#{ENV['HOME']}/.bash_profile", "#{ENV['HOME']}/.zhsrc"].each do |fname|
+    File.open(fname, "a+") {|f|
+      2.times {f.puts()}
+      f.puts "PATH=/usr/local/bin:/usr/local:$PATH"
+    }
+  end
 end
 
 dep 'foreman' do
