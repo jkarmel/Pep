@@ -9,7 +9,8 @@ end
 def get_resource_if_dne(source, destination)
   unless resource? destination
     if /^http/.match source
-      `wget -O #{destination} #{source}`
+      puts source, destination
+      `curl -O #{source} > #{destination}`
     else
       absolute_source = Dir.pwd + '/' + source
       `ln -s #{absolute_source} #{destination}`
