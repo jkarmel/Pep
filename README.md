@@ -20,24 +20,54 @@ Style guides make the code easier to read regardless of who wrote it, please ref
 ### CoffeeScript
 
 ```coffeescript
-express = require 'express'
+lib = require 'lib'
 
-app.configure ->
-  app.use express.session secret: 'secret123'
-  app.use express.compiler
-    src: __dirname + '/public'
-    enable: [ 'coffeescript' ]
+number   = 42
+opposite = true
+multiWordVariable = 'camelcase'
 
-now.configure(poop).run 3000
+number = -42 if opposite
+
+square = (x) -> x * x
+
+list = [1, 2, 3, 4, 5]
+
+math =
+  root:   Math.sqrt
+  square: square
+  cube:   (x) -> x * square x
+
+race = (winner, runners...) ->
+  print winner, runners
+
+alert "I knew it!" if elvis?
+
+cubes = (math.cube num for num in list)
 
 # ------------------------------------------------------------------------------
-# Tests
+# Section
 # ------------------------------------------------------------------------------
 
-tests = [
-  "a",
+largeList = [
+  "a"
   "b"
+  "c"
+  "d"
+  "e"
+  "f"
+  "g"
+  "h"
 ]
+
+kids =
+  brother:
+    name: "Max"
+    age:  11
+  sister:
+    name: "Ida"
+    age:  9
+
+inlineFunction = -> 1 * 5
 ```
 
 ### Less
