@@ -8,6 +8,7 @@ exports.hardcode.application = (content) ->
       link rel: "shortcut icon", href: "/favicon.ico"
 
       # Stylesheets
+      # TODO: These need to be compiled into one stylesheet
       link rel: 'stylesheet', href: '/stylesheets/reset.css'
       link rel: 'stylesheet', href: '/stylesheets/main.css'
 
@@ -18,6 +19,7 @@ exports.hardcode.application = (content) ->
       script type: "text/javascript", "try{Typekit.load();}catch(e){}"
 
       # Entry point for javascript loading on a page
+      # TODO: Minify our javascripts
       if content?.js
         script "data-main": "/javascripts/entry_point/#{content.js}", src: "/javascripts/vendor/require.min.js"
 
