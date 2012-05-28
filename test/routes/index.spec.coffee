@@ -9,10 +9,19 @@ should = chai.should()
 
 describe "routes", ->
   describe "index", ->
-    it "should render 'index.html.coffee'", ->
+    it "renders 'index.html.coffee'", ->
       request = {}
       response = { 'render' : sinon.stub() }
 
       routes.index(request, response)
 
       response.render.should.have.been.calledWith("index.html.coffee")
+
+  describe "style", ->
+    it "renders 'style.html.coffee'", ->
+      request = {}
+      response = { 'render' : sinon.stub() }
+
+      routes.style(request, response)
+
+      response.render.should.have.been.calledWith("style.html.coffee")
