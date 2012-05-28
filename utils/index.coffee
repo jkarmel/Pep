@@ -1,6 +1,6 @@
-exports.extend = (obj, mixin) ->
-  obj[name] = method for name, method of mixin
-  obj
+exports.extend = (object, mixin) ->
+  object[name] = method for name, method of mixin
+  object
 
 exports.include = (klass, mixin) ->
-  extend klass.prototype, mixin
+  exports.extend klass.prototype, mixin
