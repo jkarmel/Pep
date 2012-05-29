@@ -6,14 +6,15 @@ _.str = require 'underscore.string'
 
 exports.WRITABLE_FIELDS = WRITABLE_FIELDS = ['email', 'phone']
 
-customerGroupProperties =
-  newCustomerGroup: (callback) ->
+CustomerMethods =
+  newCustomer: (callback) ->
     customer = new Customer
       sessions: [new Session]
-    customer.save (error, customerdb) =>
-      callback? @getCustomerGroup customerdb._id
+    customer.save (error, customer) =>
+      callback? @getCustomerGroup customer._id
 
-  getCustomerGroup: (customerId) ->
+  # The callback is called w
+  getCustomerGroup: (customerId, subscribeCallback) ->
     customerGroup = @getGroup "customer##{customerId}"
     customerGroup._id = customerId
 
@@ -33,15 +34,21 @@ customerGroupProperties =
               callback()
 
     Customer.findOne {_id: customerId}, (error, customer) ->
-      customer.subscribe (customerDoc) ->
-        customerGroup.now.update customerDoc
+      if error
+        console.error("Could not find customer #{customerId} to subscribe to!")
+        return subscribeCallback?(error)
+
+      customer.subscribe (customer) ->
+        customerGroup.now.update customer
+
+      subscribeCallback?()
 
     customerGroup
 
 exports.extendNow = (now, everyone) ->
-  extend now, customerGroupProperties
+  extend now, CustomerMethods
 
   everyone.now.newCustomer = (callback) ->
-    now.newCustomerGroup (group) =>
+    now.newCustomer (group) =>
       group.addUser @user.clientId
       callback?()
