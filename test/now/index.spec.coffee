@@ -8,7 +8,7 @@ should = chai.should()
 _ = require 'underscore'
 _.str = require 'underscore.string'
 
-{Client, Conversation, Message} = require '../../models'
+{Client, Session, Message} = require '../../models'
 {ClientGroup, newClientGroup, extendNow} = require '../../now'
 
 describe 'extendNow', ->
@@ -33,27 +33,27 @@ describe 'extendNow', ->
 
     beforeEach (done) ->
       Client.collection.drop()
-      Conversation.collection.drop()
+      Session.collection.drop()
       client = new Client
           name: {first: 'Jeremy', last: 'Karmel'}
           email: 'jkarmel@me.com'
           phone: '9178873997'
       for i in [0...10]
-        conversation = new Conversation
+        session = new Session
         for j in [0...10]
-          conversation.messages.push new Message body: 'old text'
-        client.conversations.push conversation
+          session.messages.push new Message body: 'old text'
+        client.sessions.push session
       client.save (error, clientdb) ->
         clientId = clientdb._id
         clientGroup = now.getClientGroup clientId
         done()
 
-    it 'can add messages to the most recent conversation', (done) ->
+    it 'can add messages to the most recent session', (done) ->
       clientGroup.now.should.respondTo 'addMessage'
       newestMessageText = 'lastest text'
       clientGroup.now.addMessage newestMessageText, ->
         Client.findOne {'email': 'jkarmel@me.com'}, (error, client) ->
-          lastMessage = _.last (_.last client.conversations).messages
+          lastMessage = _.last (_.last client.sessions).messages
           lastMessage.body.should.equal newestMessageText
           done()
 

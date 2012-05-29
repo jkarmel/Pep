@@ -11,7 +11,7 @@ define ["/javascripts/vendor/space-pen.js", "/javascripts/vendor/jquery-ui.custo
 
     render: (client) =>
       @messages.html ""
-      currentConvo = client.conversations[client.conversations.length - 1]
+      currentConvo = client.sessions[client.sessions.length - 1]
       for message in currentConvo.messages
         @addMessage message
 

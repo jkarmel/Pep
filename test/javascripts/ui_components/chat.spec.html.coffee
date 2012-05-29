@@ -32,7 +32,7 @@ describe "Chat", ->
     it "it has access to a now instance and reacts to a change in user object", ->
       chat.now.should.exist
       fakeUser =
-        conversations: [
+        sessions: [
           messages: (body: "message number #{num}" for num in [0...10])
         ]
       now.update fakeUser
@@ -42,7 +42,7 @@ describe "Chat", ->
           .should.equal 1
 
       lastMessageText = "last message"
-      fakeUser.conversations[0].messages.push body: lastMessageText
+      fakeUser.sessions[0].messages.push body: lastMessageText
       now.update fakeUser
       chat.messages.find(":contains('message')").length.should.equal 11
       chat.messages.find(":contains('#{lastMessageText}')").length

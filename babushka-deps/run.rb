@@ -16,8 +16,11 @@ dep 'run' do
     ping
   }
   meet {
+    t = Thread.new do
+      sleep(1)
+      `open http://localhost:3000`
+    end
     system("foreman run coffee app.coffee")
-    `open http://localhost:3000`
   }
 end
 
@@ -27,7 +30,10 @@ dep 'watch' do
     ping
   }
   meet {
+    t = Thread.new do
+      sleep(1)
+      `open http://localhost:3000`
+    end
     system("foreman run supervisor app.coffee")
-    `open http://localhost:3000`
   }
 end

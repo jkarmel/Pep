@@ -7,7 +7,7 @@ sinonChai = require 'sinon-chai'
 chai.use sinonChai
 should = chai.should()
 
-{Conversation, Message, Client} = models
+{Session, Message, Client} = models
 
 describe 'Client', ->
   client = null
@@ -30,33 +30,33 @@ describe 'Client', ->
       jeremy.phone.should.equal '9178873997'
       done()
 
-  it 'contains multiple conversations', (done) ->
-    conversations = (new Conversation for i in [0...10])
-    for conversation in conversations
-      conversation.messages.push (new Message body: 'text') for i in [0...10]
-      client.conversations.push conversation
+  it 'contains multiple sessions', (done) ->
+    sessions = (new Session for i in [0...10])
+    for session in sessions
+      session.messages.push (new Message body: 'text') for i in [0...10]
+      client.sessions.push session
 
     client.save (error) ->
       Client.findOne {}, (error) ->
-        client.conversations.length.should.be.equal 10
+        client.sessions.length.should.be.equal 10
         done()
 
-describe 'Conversation', ->
-  conversation = null
+describe 'Session', ->
+  session = null
 
   beforeEach (done) ->
-    Conversation.collection.drop()
-    conversation = new Conversation
+    Session.collection.drop()
+    session = new Session
 
     for i in [0...10]
       message = new Message body: 'text'
-      conversation.messages.push message
+      session.messages.push message
 
-    conversation.save (error) ->
+    session.save (error) ->
       done()
 
   it 'contains many messages', (done) ->
-    conversation.messages.length.should.equal 10
+    session.messages.length.should.equal 10
     done()
 
 describe 'Message', ->

@@ -6,7 +6,7 @@ mongoose.connect process.env.MONGOHQ_URL, (error) ->
 
 Schema = mongoose.Schema
 
-ConversationSchema = new Schema
+SessionSchema = new Schema
     messages: [MessageSchema]
 
 MessageSchema = new Schema
@@ -21,10 +21,10 @@ ClientSchema = new Schema
     middle: String
   email: String
   phone: String
-  conversations: [ConversationSchema]
+  sessions: [SessionSchema]
 
 exports.Client = Client = mongoose.model 'Client', ClientSchema
-exports.Conversation = Conversation = mongoose.model 'Conversation', ConversationSchema
+exports.Session = Session = mongoose.model 'Session', SessionSchema
 exports.Message = Message = mongoose.model 'Message', MessageSchema
 
 # Allows listening to changes on specified models.
@@ -45,7 +45,7 @@ exports.setupPubSub = setupPubSub = (models) ->
 
         pubsToSubs[model.modelName][@_id].push func
 
-exports.MODELS = MODELS = [ Conversation, Message, Client ]
+exports.MODELS = MODELS = [ Session, Message, Client ]
 
 setupPubSub(MODELS)
 

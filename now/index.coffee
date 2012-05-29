@@ -1,4 +1,4 @@
-{Client, Message, Conversation} = require "../models"
+{Client, Message, Session} = require "../models"
 {extend} = require '../utils'
 
 _ = require 'underscore'
@@ -7,7 +7,7 @@ _.str = require 'underscore.string'
 clientGroupProperties =
   newClientGroup: (callback) ->
     client = new Client
-      conversations: [new Conversation]
+      sessions: [new Session]
     client.save (error, clientdb) =>
       callback? @getClientGroup clientdb._id
 
@@ -17,7 +17,7 @@ clientGroupProperties =
 
     clientGroup.now.addMessage = (body, callback) ->
       Client.findOne {_id : clientId}, (error, client) ->
-        messages = client.conversations[client.conversations.length - 1].messages
+        messages = client.sessions[client.sessions.length - 1].messages
         messages.push new Message body: body
         client.save (error, doc) ->
           callback?()
