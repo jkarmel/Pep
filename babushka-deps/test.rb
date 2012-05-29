@@ -1,3 +1,5 @@
+require_relative 'utils.rb'
+
 def with_running(command, wait = 0)
   pid = fork {exec command}
   sleep wait
@@ -10,15 +12,12 @@ TEST_APP_COMMAND = "coffee test/javascripts/app.coffee"
 dep 'test.browser' do
   met? {
     processes = `ps -ef | grep "coffee"`.split(/\n/)
-    processes.any? do |process|
+    ping(1337) and processes.any? do |process|
       process[/#{TEST_APP_COMMAND}/]
     end
   }
   meet {
-    t = Thread.new do
-      sleep(1)
-      `open http://localhost:1337`
-    end
+    view_localhost 1337
     system TEST_APP_COMMAND
   }
 end

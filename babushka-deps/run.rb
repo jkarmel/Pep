@@ -1,14 +1,4 @@
-def ping
-  alive = true
-
-  begin
-    Net::HTTP.get(URI("http://localhost:3000/"))
-  rescue
-    alive = false
-  end
-
-  alive
-end
+require_relative 'utils.rb'
 
 dep 'run' do
   requires 'foreman', 'mongodb-start'
@@ -16,10 +6,7 @@ dep 'run' do
     ping
   }
   meet {
-    t = Thread.new do
-      sleep(1)
-      `open http://localhost:3000`
-    end
+    view_localhost
     system("foreman run coffee app.coffee")
   }
 end
@@ -30,10 +17,7 @@ dep 'watch' do
     ping
   }
   meet {
-    t = Thread.new do
-      sleep(1)
-      `open http://localhost:3000`
-    end
+    view_localhost
     system("foreman run supervisor app.coffee")
   }
 end
