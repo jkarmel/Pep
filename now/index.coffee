@@ -4,7 +4,7 @@
 _ = require 'underscore'
 _.str = require 'underscore.string'
 
-exports.WRITABLE_FIELDS = WRITABLE_FIELDS = [ 'email', 'phone' ]
+exports.WRITABLE_FIELDS = WRITABLE_FIELDS = ['email', 'phone']
 
 customerGroupProperties =
   newCustomerGroup: (callback) ->

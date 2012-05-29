@@ -14,7 +14,6 @@ MessageSchema = new Schema
     createdAt: {type: Date, default: Date.now}
 
 CustomerSchema = new Schema
-  customerId: String
   name:
     first: String
     last: String
