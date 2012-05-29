@@ -26,7 +26,7 @@ app.configure ->
 
   app.use express.cookieParser()
 
-  # Set this to a secret value to encrypt session cookies
+  # TODO: Set this to a secret value to encrypt session cookies
   app.use express.session secret: process.env.SESSION_SECRET || 'secret123'
 
   app.helpers require './helpers/layouts'
@@ -56,7 +56,7 @@ console.log 'Express server listening on port %d in %s mode', app.address().port
 # ------------------------------------------------------------------------------
 # NowJS
 # ------------------------------------------------------------------------------
-nowjs = require("now")
+now = require("now")
 
 # If using HEROKU to serve, downgrade transport to xhr and json, since heroku
 # does not support websockets.
@@ -66,14 +66,6 @@ if process.env.HEROKU
     socketio:
       transports: [ 'xhr-polling', 'jsonp-polling' ]
 
-everyone = nowjs.initialize app, nowSettings
+everyone = now.initialize app, nowSettings
 
-require('./now').extendNowjs(nowjs)
-
-everyone.now.newClient = (callback) ->
-  nowjs.newClientGroup (group) =>
-    group.addUser @user.clientId
-    callback?()
-
-
-models = require './models'
+require('./now').extendNow now, everyone

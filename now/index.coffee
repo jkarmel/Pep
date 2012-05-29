@@ -38,5 +38,10 @@ clientGroupProperties =
 
     clientGroup
 
-exports.extendNowjs = (now) ->
+exports.extendNow = (now, everyone) ->
   extend now, clientGroupProperties
+
+  everyone.now.newClient = (callback) ->
+    now.newClientGroup (group) =>
+      group.addUser @user.clientId
+      callback?()

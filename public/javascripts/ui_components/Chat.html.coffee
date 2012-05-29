@@ -1,4 +1,4 @@
-define ["/javascripts/vendor/space-pen.js"], ->
+define ["/javascripts/vendor/space-pen.js", "/javascripts/vendor/jquery-ui.custom.min.js"], ->
   Chat = class extends View
     @content = ->
       @div ".chat", =>

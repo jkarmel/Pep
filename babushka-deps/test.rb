@@ -37,10 +37,10 @@ dep 'test.backend.task' do
   requires 'mongodb-start'
 
   run {
-    test_dirs = ""
+    test_dirs = "test/app.spec.coffee"
     Dir.foreach 'test' do |resource|
       unless resource[/\./] or resource == 'javascripts'
-        test_dirs += "test/#{resource}/* "
+        test_dirs += " test/#{resource}/*"
       end
     end
 

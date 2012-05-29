@@ -1,5 +1,3 @@
-routes = require '../../routes'
-
 chai = require 'chai'
 sinon = require 'sinon'
 sinonChai = require 'sinon-chai'
@@ -11,17 +9,17 @@ _ = require 'underscore'
 _.str = require 'underscore.string'
 
 {Client, Conversation, Message} = require '../../models'
-{ClientGroup, newClientGroup, extendNowjs} = require '../../now'
+{ClientGroup, newClientGroup, extendNow} = require '../../now'
 
-describe 'extendNowjs', ->
+describe 'extendNow', ->
   spy = sinon.spy()
-  nowMock = {getGroup: -> {now : {update: spy}} }
-  extendNowjs nowMock
+  now = {getGroup: -> {now : {update: spy}}}
+  everyone = {now: {}}
+  extendNow now, everyone
 
   describe 'newClientGroup', ->
-
     it 'can create a new client group',  (done) ->
-      nowMock.newClientGroup (group) ->
+      now.newClientGroup (group) ->
         feelWellAdress = 'jeremy@feelwelllabs.com'
         group.now.setEmail feelWellAdress, ->
           Client.findOne {_id: group._id}, (error, client) ->
@@ -47,7 +45,7 @@ describe 'extendNowjs', ->
         client.conversations.push conversation
       client.save (error, clientdb) ->
         clientId = clientdb._id
-        clientGroup = nowMock.getClientGroup clientId
+        clientGroup = now.getClientGroup clientId
         done()
 
     it 'can add messages to the most recent conversation', (done) ->
