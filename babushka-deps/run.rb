@@ -17,6 +17,7 @@ dep 'run' do
   }
   meet {
     system("foreman run coffee app.coffee")
+    `open http://localhost:3000`
   }
 end
 
@@ -27,5 +28,6 @@ dep 'watch' do
   }
   meet {
     system("foreman run supervisor app.coffee")
+    `open http://localhost:3000`
   }
 end
