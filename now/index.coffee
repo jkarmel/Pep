@@ -4,6 +4,8 @@
 _ = require 'underscore'
 _.str = require 'underscore.string'
 
+exports.WRITABLE_FIELDS = WRITABLE_FIELDS = [ 'email', 'phone' ]
+
 clientGroupProperties =
   newClientGroup: (callback) ->
     client = new Client
@@ -22,9 +24,7 @@ clientGroupProperties =
         client.save (error, doc) ->
           callback?()
 
-    writableFields = 'email phone'.split /\s+/
-
-    for field in writableFields
+    for field in WRITABLE_FIELDS
       do (field) ->
         clientGroup.now["set#{_.str.capitalize field}"] = (entry, callback) ->
           Client.findOne {_id : clientId}, (error, client) ->

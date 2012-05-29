@@ -9,7 +9,7 @@ _ = require 'underscore'
 _.str = require 'underscore.string'
 
 {Client, Session, Message} = require '../../models'
-{ClientGroup, newClientGroup, extendNow} = require '../../now'
+{WRITABLE_FIELDS, extendNow} = require '../../now'
 
 describe 'extendNow', ->
   spy = sinon.spy()
@@ -57,12 +57,10 @@ describe 'extendNow', ->
           lastMessage.body.should.equal newestMessageText
           done()
 
-    writableFields = 'email phone'.split /\s+/
-
-    for field in writableFields
+    for field in WRITABLE_FIELDS
       do (field) ->
         methodName = "set#{_.str.capitalize field}"
-        it "can write to #{field} through now method #{methodName}", (done) ->
+        it "can write to #{field.toLowerCase()} through now method #{methodName}", (done) ->
           clientGroup.now.should.respondTo methodName
           fakeEntry = "fake #{field}"
           clientGroup.now[methodName] fakeEntry, ->
