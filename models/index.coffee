@@ -13,8 +13,8 @@ MessageSchema = new Schema
     body: String
     createdAt: {type: Date, default: Date.now}
 
-ClientSchema = new Schema
-  clientId: String
+CustomerSchema = new Schema
+  customerId: String
   name:
     first: String
     last: String
@@ -23,7 +23,7 @@ ClientSchema = new Schema
   phone: String
   sessions: [SessionSchema]
 
-exports.Client = Client = mongoose.model 'Client', ClientSchema
+exports.Customer = Customer = mongoose.model 'Customer', CustomerSchema
 exports.Session = Session = mongoose.model 'Session', SessionSchema
 exports.Message = Message = mongoose.model 'Message', MessageSchema
 
@@ -45,7 +45,7 @@ exports.setupPubSub = setupPubSub = (models) ->
 
         pubsToSubs[model.modelName][@_id].push func
 
-exports.MODELS = MODELS = [ Session, Message, Client ]
+exports.MODELS = MODELS = [ Session, Message, Customer ]
 
 setupPubSub(MODELS)
 

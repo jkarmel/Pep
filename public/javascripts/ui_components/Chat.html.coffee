@@ -9,9 +9,9 @@ define ["/javascripts/vendor/space-pen.js", "/javascripts/vendor/jquery-ui.custo
     initialize: (@now) ->
       now.subscribers.push @render
 
-    render: (client) =>
+    render: (customer) =>
       @messages.html ""
-      currentConvo = client.sessions[client.sessions.length - 1]
+      currentConvo = customer.sessions[customer.sessions.length - 1]
       for message in currentConvo.messages
         @addMessage message
 

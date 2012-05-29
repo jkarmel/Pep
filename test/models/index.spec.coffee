@@ -7,23 +7,23 @@ sinonChai = require 'sinon-chai'
 chai.use sinonChai
 should = chai.should()
 
-{Session, Message, Client} = models
+{Session, Message, Customer} = models
 
-describe 'Client', ->
-  client = null
+describe 'Customer', ->
+  customer = null
 
   beforeEach (done) ->
-    Client.collection.drop()
-    client = new Client
+    Customer.collection.drop()
+    customer = new Customer
       name:
         first: 'Jeremy'
         last: 'Karmel'
       email: 'jkarmel@me.com'
       phone: '9178873997'
-    client.save(done)
+    customer.save(done)
 
-  it 'finds clients', (done) ->
-    Client.findOne().where( 'name.first', 'Jeremy').run (error, jeremy) ->
+  it 'finds customers', (done) ->
+    Customer.findOne().where( 'name.first', 'Jeremy').run (error, jeremy) ->
       jeremy.name.first.should.equal 'Jeremy'
       jeremy.name.last.should.equal 'Karmel'
       jeremy.email.should.equal 'jkarmel@me.com'
@@ -34,11 +34,11 @@ describe 'Client', ->
     sessions = (new Session for i in [0...10])
     for session in sessions
       session.messages.push (new Message body: 'text') for i in [0...10]
-      client.sessions.push session
+      customer.sessions.push session
 
-    client.save (error) ->
-      Client.findOne {}, (error) ->
-        client.sessions.length.should.be.equal 10
+    customer.save (error) ->
+      Customer.findOne {}, (error) ->
+        customer.sessions.length.should.be.equal 10
         done()
 
 describe 'Session', ->

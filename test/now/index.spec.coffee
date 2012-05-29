@@ -8,7 +8,7 @@ should = chai.should()
 _ = require 'underscore'
 _.str = require 'underscore.string'
 
-{Client, Session, Message} = require '../../models'
+{Customer, Session, Message} = require '../../models'
 {WRITABLE_FIELDS, extendNow} = require '../../now'
 
 describe 'extendNow', ->
@@ -17,24 +17,24 @@ describe 'extendNow', ->
   everyone = {now: {}}
   extendNow now, everyone
 
-  describe 'newClientGroup', ->
-    it 'can create a new client group',  (done) ->
-      now.newClientGroup (group) ->
+  describe 'newCustomerGroup', ->
+    it 'can create a new customer group',  (done) ->
+      now.newCustomerGroup (group) ->
         feelWellAdress = 'jeremy@feelwelllabs.com'
         group.now.setEmail feelWellAdress, ->
-          Client.findOne {_id: group._id}, (error, client) ->
-            client.email.should.equal feelWellAdress
+          Customer.findOne {_id: group._id}, (error, customer) ->
+            customer.email.should.equal feelWellAdress
             spy.should.have.been.calledOnce
             done()
 
-  describe 'getClientGroup', ->
-    clientGroup = null
-    clientId = null
+  describe 'getCustomerGroup', ->
+    customerGroup = null
+    customerId = null
 
     beforeEach (done) ->
-      Client.collection.drop()
+      Customer.collection.drop()
       Session.collection.drop()
-      client = new Client
+      customer = new Customer
           name: {first: 'Jeremy', last: 'Karmel'}
           email: 'jkarmel@me.com'
           phone: '9178873997'
@@ -42,18 +42,18 @@ describe 'extendNow', ->
         session = new Session
         for j in [0...10]
           session.messages.push new Message body: 'old text'
-        client.sessions.push session
-      client.save (error, clientdb) ->
-        clientId = clientdb._id
-        clientGroup = now.getClientGroup clientId
+        customer.sessions.push session
+      customer.save (error, customerdb) ->
+        customerId = customerdb._id
+        customerGroup = now.getCustomerGroup customerId
         done()
 
     it 'can add messages to the most recent session', (done) ->
-      clientGroup.now.should.respondTo 'addMessage'
+      customerGroup.now.should.respondTo 'addMessage'
       newestMessageText = 'lastest text'
-      clientGroup.now.addMessage newestMessageText, ->
-        Client.findOne {'email': 'jkarmel@me.com'}, (error, client) ->
-          lastMessage = _.last (_.last client.sessions).messages
+      customerGroup.now.addMessage newestMessageText, ->
+        Customer.findOne {'email': 'jkarmel@me.com'}, (error, customer) ->
+          lastMessage = _.last (_.last customer.sessions).messages
           lastMessage.body.should.equal newestMessageText
           done()
 
@@ -61,9 +61,9 @@ describe 'extendNow', ->
       do (field) ->
         methodName = "set#{_.str.capitalize field}"
         it "can write to #{field.toLowerCase()} through now method #{methodName}", (done) ->
-          clientGroup.now.should.respondTo methodName
+          customerGroup.now.should.respondTo methodName
           fakeEntry = "fake #{field}"
-          clientGroup.now[methodName] fakeEntry, ->
-            Client.findOne {}, (error, client) ->
-              client[field].should.equal fakeEntry
+          customerGroup.now[methodName] fakeEntry, ->
+            Customer.findOne {}, (error, customer) ->
+              customer[field].should.equal fakeEntry
               done()

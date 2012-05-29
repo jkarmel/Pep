@@ -10,11 +10,11 @@ Index = {
 
   loadChat: =>
     $('#content').html ''
-    now.newClient()
+    now.newCustomer()
     $('#content').append new Index.Chat now
 }
 
-require ['/javascripts/ui_components/chat.html.js', '/javascripts/now/client.js'],
+require ['/javascripts/ui_components/chat.html.js', '/javascripts/now/customer.js'],
         Index.setup
 
 window.Testable?.Index = Index

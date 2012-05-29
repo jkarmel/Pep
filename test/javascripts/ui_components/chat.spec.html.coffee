@@ -4,7 +4,7 @@ describe "Chat", ->
   before (done) ->
     require [
       '/javascripts/ui_components/chat.html.js'
-      '/javascripts/now/client.js'
+      '/javascripts/now/customer.js'
     ], (ChatModule) ->
       Chat = ChatModule
       done()

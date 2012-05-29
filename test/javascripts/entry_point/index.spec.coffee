@@ -26,10 +26,10 @@ describe "Index", ->
       Testable.Index.loadChat()
       $('#old').should.not.exist
 
-    it "creates a new client", ->
-      now.newClient = sinon.spy()
+    it "creates a new customer", ->
+      now.newCustomer = sinon.spy()
       Testable.Index.loadChat()
-      now.newClient.should.have.been.called
+      now.newCustomer.should.have.been.called
 
     it "adds a Chat window to content", ->
       $.fn.append = sinon.spy()

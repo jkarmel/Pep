@@ -1,4 +1,4 @@
-{Client, Message, Session} = require "../models"
+{Customer, Message, Session} = require "../models"
 {extend} = require '../utils'
 
 _ = require 'underscore'
@@ -6,42 +6,42 @@ _.str = require 'underscore.string'
 
 exports.WRITABLE_FIELDS = WRITABLE_FIELDS = [ 'email', 'phone' ]
 
-clientGroupProperties =
-  newClientGroup: (callback) ->
-    client = new Client
+customerGroupProperties =
+  newCustomerGroup: (callback) ->
+    customer = new Customer
       sessions: [new Session]
-    client.save (error, clientdb) =>
-      callback? @getClientGroup clientdb._id
+    customer.save (error, customerdb) =>
+      callback? @getCustomerGroup customerdb._id
 
-  getClientGroup: (clientId) ->
-    clientGroup = @getGroup "client##{clientId}"
-    clientGroup._id = clientId
+  getCustomerGroup: (customerId) ->
+    customerGroup = @getGroup "customer##{customerId}"
+    customerGroup._id = customerId
 
-    clientGroup.now.addMessage = (body, callback) ->
-      Client.findOne {_id : clientId}, (error, client) ->
-        messages = client.sessions[client.sessions.length - 1].messages
+    customerGroup.now.addMessage = (body, callback) ->
+      Customer.findOne {_id : customerId}, (error, customer) ->
+        messages = customer.sessions[customer.sessions.length - 1].messages
         messages.push new Message body: body
-        client.save (error, doc) ->
+        customer.save (error, doc) ->
           callback?()
 
     for field in WRITABLE_FIELDS
       do (field) ->
-        clientGroup.now["set#{_.str.capitalize field}"] = (entry, callback) ->
-          Client.findOne {_id : clientId}, (error, client) ->
-            client[field] = entry
-            client.save (error, doc) ->
+        customerGroup.now["set#{_.str.capitalize field}"] = (entry, callback) ->
+          Customer.findOne {_id : customerId}, (error, customer) ->
+            customer[field] = entry
+            customer.save (error, doc) ->
               callback()
 
-    Client.findOne {_id: clientId}, (error, client) ->
-      client.subscribe (clientDoc) ->
-        clientGroup.now.update clientDoc
+    Customer.findOne {_id: customerId}, (error, customer) ->
+      customer.subscribe (customerDoc) ->
+        customerGroup.now.update customerDoc
 
-    clientGroup
+    customerGroup
 
 exports.extendNow = (now, everyone) ->
-  extend now, clientGroupProperties
+  extend now, customerGroupProperties
 
-  everyone.now.newClient = (callback) ->
-    now.newClientGroup (group) =>
+  everyone.now.newCustomer = (callback) ->
+    now.newCustomerGroup (group) =>
       group.addUser @user.clientId
       callback?()
