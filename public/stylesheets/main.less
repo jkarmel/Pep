@@ -2,7 +2,7 @@
 @width: 960px;
 @narrow-width: 720px;
 @h-font: "futura-pt-1","futura-pt-2", sans-serif;
-@p-font: "adelle-1","adelle-2", serif;
+@p-font: "runda-1","runda-2", serif;
 @horiz-padding: 5px;
 @padding: 10px @horiz-padding;
 @line-height: 1.3em;
@@ -11,9 +11,10 @@
 @semi-bold-weight: 400;
 @bold-weight: 600;
 
-@blue-light: #CDE6EF;
-@blue: #00ADEF;
-@blue-dark: #0082B3;
+@blue-ultra-light: #E7F0F4;
+@blue-light: #87CCED;
+@blue: #4FBAED;
+@blue-dark: #3B8DB3;
 
 @black: #333;
 @black-light: #777;
@@ -21,7 +22,7 @@
 @grey-med: #CCC;
 @grey-med-light: #DFDFDF;
 @grey-light: #F2F2F2;
-@white: #F9F9F9;
+@white: #FFFFFF;
 
 .transition(@time: .2s) {
   -webkit-transition: all @time ease-in-out;
@@ -91,6 +92,12 @@
   box-shadow: @a @b @c @d @color;
 }
 
+.inner-box-shadow(@a, @b, @c, @d, @color) {
+  -moz-box-shadow: inset @a @b @c @d @color;
+  -webkit-box-shadow: inset @a @b @c @d @color;
+  box-shadow: inset @a @b @c @d @color;
+}
+
 a {
   color: @blue-dark;
   font-weight: @bold-weight;
@@ -154,7 +161,7 @@ html {
 }
 
 body {
-  background-color: @grey-light;
+  background-color: @white;
   color: @black;
   font-family: @p-font;
   font-weight: @normal-weight;
@@ -191,7 +198,7 @@ input {
   &[type='submit'], &[type='button'] {
     .transition;
     .button;
-    padding: 10px 10px 6px 10px;
+    padding: 10px;
 
     &.loading {
       .transition;
@@ -207,7 +214,7 @@ input {
 @-moz-document url-prefix() {
   input[type='submit'] {
     padding-top: 8px;
-    padding-bottom: 4px;
+    padding-bottom: 8px;
   }
 }
 
@@ -278,7 +285,7 @@ h1 {
   color: @blue;
   text-align: center;
   font-size: 60px;
-  margin: 10px 0 10px 0;
+  margin: 30px 0 10px 0;
 
   a {
     color: @blue;
@@ -464,17 +471,16 @@ h4 {
 .chat {
   .transition;
 
-  width: 690px;
+  width: 688px;
   float: left;
 
-  .border-radius;
-  background-color: @white;
-  .box-shadow(0, 0, 5px, 1px, #DDD);
+  border: 1px solid #EEE;
+  .inner-box-shadow(0, 0, 10px, 0, #EEE);
+  .border-radius(2px);
 }
 
 .messages {
   overflow-y: auto;
-
   padding: 20px;
 }
 
@@ -499,11 +505,10 @@ h4 {
 
     &.body {
       float: right;
-      background-color: @blue-light;
-
       font-size: 14px;
 
-      padding: 10px 10px 6px 10px;
+      background-color: @blue-ultra-light;
+      padding: 10px;
       margin: 5px 0 0 40%;
       .border-radius;
 
@@ -519,8 +524,8 @@ h4 {
     }
 
     p.body {
+      background-color: @white;
       float: left;
-      background-color: white;
       margin: 5px 40% 0 0;
     }
   }
