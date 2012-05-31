@@ -55,7 +55,6 @@ describe "Chat", ->
           chat.render fakeCustomer
 
         it "renders each message", ->
-          console.log chat.html()
           chat.messages.find(".body:contains('message')").length.should.equal 5
           for num in [0...5]
             chat.messages.find(".body:contains('message number #{num}')").length
