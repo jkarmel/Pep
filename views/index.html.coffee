@@ -3,4 +3,4 @@ application
   body: ->
     h1 'Feel Well Labs'
     center ->
-      input '#start-button', type: 'button', value: 'Get it now with Jeremy as your guide &rarr;'
+      input '#start-button.loading.disabled', type: 'button', value: 'Get it now with Jeremy as your guide &rarr;'

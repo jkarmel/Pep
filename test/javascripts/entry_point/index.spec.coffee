@@ -13,6 +13,14 @@ describe "Index", ->
       $.fn.click.should.have.been.calledWith Testable.Index.loadChat
       Test.withSelector '#start-button', $.fn.click.lastCall
 
+    it "removes loading and disabled", ->
+      sinon.spy $.fn, 'removeClass'
+      Testable.Index.main()
+      $.fn.removeClass.calledWith('loading').should.be.true
+      $.fn.removeClass.calledWith('disabled').should.be.true
+      Test.withSelector '#start-button', $.fn.removeClass.lastCall
+      $.fn.removeClass.restore()
+
   describe "loadChat", ->
     before ->
       Testable.Index.Chat = class

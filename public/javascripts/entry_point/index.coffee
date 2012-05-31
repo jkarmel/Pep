@@ -6,7 +6,8 @@ Index = {
         Index.main()
 
   main: ->
-    $('#start-button').click @loadChat
+    $("#start-button").removeClass('loading').removeClass('disabled')
+      .click @loadChat
 
   loadChat: =>
     $('#content').html ''
