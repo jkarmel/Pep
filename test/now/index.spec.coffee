@@ -86,6 +86,8 @@ describe 'extendNow', ->
             Customer.findOne {'email': 'jeremy@example.com'}, (error, customer) ->
               lastMessage = _.last (_.last customer.sessions).messages
               lastMessage.body.should.equal newestMessageText
+              lastMessage.author.id.should.eql customer._id
+              lastMessage.author.firstName.should.equal customer.name.first
               done()
 
       for field in WRITABLE_FIELDS

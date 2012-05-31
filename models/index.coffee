@@ -4,7 +4,8 @@ mongoose.connect process.env.MONGOHQ_URL, (error) ->
     console.error "Could not connect to MongoDB"
     throw error
 
-Schema = mongoose.Schema
+{Schema}   = mongoose
+{ObjectId} = Schema
 
 SessionSchema = new Schema
     messages: [MessageSchema]
@@ -12,6 +13,9 @@ SessionSchema = new Schema
 MessageSchema = new Schema
     body: String
     createdAt: {type: Date, default: Date.now}
+    author:
+      id: ObjectId
+      firstName: String
 
 CustomerSchema = new Schema
   name:

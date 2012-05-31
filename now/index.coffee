@@ -13,7 +13,8 @@ CustomerMethods =
     customer.save (error, customer) =>
       callback? @getCustomerGroup customer._id
 
-  # The callback is called w
+  # This is resonsible for getting a customer group and then adding appropriate
+  # methods to its not instance
   getCustomerGroup: (customerId, subscribeCallback) ->
     customerGroup = @getGroup "customer##{customerId}"
     customerGroup._id = customerId
@@ -21,7 +22,11 @@ CustomerMethods =
     customerGroup.now.addMessage = (body, callback) ->
       Customer.findOne {_id : customerId}, (error, customer) ->
         messages = customer.sessions[customer.sessions.length - 1].messages
-        messages.push new Message body: body
+        messages.push new Message
+          body: body
+          author:
+            id: customer._id
+            firstName: customer.name.first
         customer.save (error, doc) ->
           callback?()
 

@@ -8,6 +8,7 @@ chai.use sinonChai
 should = chai.should()
 
 {Session, Message, Customer} = models
+{mongoose} = models
 
 describe 'Customer', ->
   customer = null
@@ -60,17 +61,28 @@ describe 'Session', ->
     done()
 
 describe 'Message', ->
+  customer = new Customer
 
   beforeEach (done) ->
     Message.collection.drop()
     message = new Message
       body: 'Main text'
+      author:
+        id: customer.id
+        firstName: 'Jeremy'
     message.save(done)
 
   it 'has a body', (done) ->
     Message.findOne {}, (error, message) ->
       message.body.should.exist
       done()
+
+  it 'has an author', (done) ->
+    Message.findOne {}, (error, message) ->
+      message.author.firstName.should.equal 'Jeremy'
+      message.author.id.should.eql customer._id
+      done()
+
 
   it 'sets createdAt to now by default', (done) ->
     Message.findOne {}, (error, message) ->
