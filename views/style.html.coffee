@@ -75,7 +75,7 @@ application
 
           div '.detail', "a .detail"
         div '.chat', ->
-          div '.log', style: 'height: 600px;', ->
+          div '.messages', style: 'height: 600px;', ->
             div '.message.other', ->
               p '.sender', 'Abhik'
               p '.body', 'Hey!'
