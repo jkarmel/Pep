@@ -3,7 +3,7 @@ application
     title "Style Guide | Feel Well Labs"
   body: ->
     div ".page", ->
-      h1 ".sep", "Style Guide"
+      h1 ".sep.center", "Style Guide"
       h1 "Heading 1"
       h1 -> a href: 'javascript:void(0);', "Heading 1 anchor"
       h2 "Heading 2"
@@ -20,33 +20,8 @@ application
       ul ->
         li "li inside ul"
         li "li inside ul"
-      div ".three.sections", ->
-        div ".section", -> "1st .section in .three.sections"
-        div ".section", "2nd .section"
-        div ".section", ->
-          h3 "3rd .section (heading 3)"
 
-      div ".two.sections", ->
-        div ".section", "1st .section in .two.sections"
-        div ".section", ->
-          p "2nd .section p"
-
-      div ".three.narrow.sections", ->
-        div ".section", -> "1st .section in .three.narrow.sections"
-        div ".section", "2nd .section"
-        div ".section", ->
-          h3 "3rd .section (heading 3)"
-
-      div ".two.narrow.sections", ->
-        div ".section", "1st .section in .two.narrow.sections"
-        div ".section", ->
-          p "2nd .section p"
-
-      p ".mission-statement", "p.mission-statement"
-
-      p ".transition", "p.transition"
-
-      p ".center", "p.center"
+      p ".center", "*.center"
 
       p ".small", "*p.small"
 
@@ -61,19 +36,84 @@ application
         input type: 'text', value: "input[type='text']"
       p ->
         textarea "textarea"
-      h1 ".sep", "Chat"
-    div ".page", ->
-      div '.session', ->
-        div '.sidebar', ->
-          div '.profile.detail', ->
-            h3 "Abhik Pramanik"
-            p '.desc', ->
-              img src: '/images/abhik.jpg'
-              text """
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent magna lacus, vulputate a pretium non, cursus in mauris. Nam non nisl luctus erat imperdiet tempus a in erat. Morbi sapien leo, fermentum sit amet lobortis non, pellentesque sed tellus. Vivamus faucibus cursus massa, eu consectetur tortor dictum eget. Suspendisse potenti. Nulla vulputate purus interdum massa accumsan pellentesque. Sed at dictum.
-              """
+      form ->
+        p "form"
+        fieldset ->
+          div ".field", ->
+            label "Label"
+            div ".controls", ->
+              input type: 'text', value: ".controls input[type='text']"
+          div ".field", ->
+            label "Label 2"
+            div ".controls", ->
+              textarea "textarea"
+          div ".field", ->
+            label "Label 3"
+            div ".controls", ->
+              input type: 'text', value: ".controls input[type='text']"
 
-          div '.detail', "a .detail"
+      form ".small", ->
+        p "form.small"
+        fieldset ->
+          div ".field", ->
+            label "Label"
+            div ".controls", ->
+              input type: 'text', value: ".controls input[type='text']"
+          div ".field", ->
+            label "Label 2"
+            div ".controls", ->
+              textarea "textarea"
+          div ".field", ->
+            label "Label 3"
+            div ".controls", ->
+              input type: 'text', value: ".controls input[type='text']"
+
+    div ".page", ->
+      h1 ".sep", "Chat"
+      div '.session', ->
+        div '.panes', ->
+          div '.profile.pane', ->
+            h3 'Feelings & Thoughts'
+            h4 '.step', 'Feelings Before'
+            ul ->
+              li ->
+                text "Angry - "
+                b "8"
+              li ->
+                text "Frustrated - "
+                b "9"
+            h4 '.step', 'Thoughts'
+            ul ->
+              li "I will lose my home"
+              li "I am a horrible money manager"
+
+            h4 '.step.current', 'Feelings After'
+            ul ->
+              li ->
+                text "Angry - "
+                b "5"
+              li ->
+                text "Frustrated - "
+                b "6"
+          div '.profile.pane', ->
+            h3 'Results'
+            h4 '.step', 'Before'
+            ul ->
+              li ->
+                text "Angry - "
+                b "8"
+              li ->
+                text "Frustrated - "
+                b "9"
+            h4 '.step.current', 'After'
+            ul ->
+              li ->
+                text "Angry - "
+                b "5"
+              li ->
+                text "Frustrated - "
+                b "6"
+
         div '.chat', ->
           div '.messages', style: 'height: 600px;', ->
             div '.message.other', ->
