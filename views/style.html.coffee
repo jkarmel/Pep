@@ -35,6 +35,8 @@ application
       p ->
         input type: 'text', value: "input[type='text']"
       p ->
+        input type: 'text', placeholder: "input[type='text'][placeholder=]"
+      p ->
         textarea "textarea"
       form ->
         p "form"
@@ -113,6 +115,8 @@ application
               li ->
                 text "Frustrated - "
                 b "6"
+          div '.profile.pane', ->
+            h3 'Payment'
 
         div '.chat', ->
           div '.messages', style: 'height: 600px;', ->

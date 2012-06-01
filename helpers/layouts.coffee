@@ -18,6 +18,13 @@ exports.hardcode.application = (content) ->
       script type: "text/javascript", src: "http://use.typekit.com/mpr8kpy.js"
       script type: "text/javascript", "try{Typekit.load();}catch(e){}"
 
+      # TODO: TEST, Put this in a requirejs definition
+      script type: "text/javascript", src: "/js/vendor/modernizr.custom.min.js"
+      script type: "text/javascript", src: "/js/vendor/jquery.placeholder.min.js"
+      coffeescript ->
+        unless Modernizr.input.placeholder
+          $('input[placeholder], textarea[placeholder]').placeholder()
+
       # Entry point for javascript loading on a page
       # TODO: Minify our javascripts
       if content?.js
