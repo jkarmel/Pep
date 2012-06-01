@@ -1,4 +1,4 @@
-define ["/javascripts/vendor/space-pen.js", "/javascripts/vendor/jquery-ui.custom.min.js"], ->
+define ["/js/vendor/space-pen.js", "/js/vendor/jquery-ui.custom.min.js"], ->
   Coach = class extends View
     @content = ->
       @div '.sessions', =>

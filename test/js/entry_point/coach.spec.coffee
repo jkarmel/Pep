@@ -1,6 +1,6 @@
 describe "coach page", ->
   before (done) ->
-    require ['/javascripts/entry_point/coach.js'], -> done()
+    require ['/js/entry_point/coach.js'], -> done()
 
   describe "main", ->
     it "appends a new coach interface to the chat window", ->

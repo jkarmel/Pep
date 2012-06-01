@@ -11,6 +11,6 @@ CoachPage = {
     $(document.body).append new CoachPage.Coach
 }
 
-define ['/javascripts/ui/coach.html.js'], CoachPage.setup
+define ['/js/ui/coach.html.js'], CoachPage.setup
 
 window.Testable?.CoachPage = CoachPage

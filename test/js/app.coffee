@@ -39,7 +39,7 @@ app.get '/', (req, res) ->
       head ->
         link rel: "stylesheet", href: "/support/mocha.css"
         script src: "https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"
-        script src: "/javascripts/vendor/jquery-ui.custom.min.js"
+        script src: "/js/vendor/jquery-ui.custom.min.js"
         script src: "/support/mocha.js"
         script src: "/support/chai.js"
         script src: "/support/sinon.js"
@@ -51,7 +51,7 @@ app.get '/', (req, res) ->
 
         script src: "/support/chai-jquery.js"
         script src: "/support/sinon-chai.js"
-        script src: "/javascripts/vendor/require.min.js"
+        script src: "/js/vendor/require.min.js"
         script src: "/support/stubs.js"
 
         script src: "/chat.spec.html.js"

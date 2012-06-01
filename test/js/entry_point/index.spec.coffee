@@ -1,6 +1,6 @@
 describe "Index", ->
   before (done) ->
-    require ['/javascripts/entry_point/index.js'], -> done()
+    require ['/js/entry_point/index.js'], -> done()
 
   describe "require", ->
     it "calls main once all modules are loaded", ->

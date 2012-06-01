@@ -21,7 +21,7 @@ exports.hardcode.application = (content) ->
       # Entry point for javascript loading on a page
       # TODO: Minify our javascripts
       if content?.js
-        script "data-main": "/javascripts/entry_point/#{content.js}", src: "/javascripts/vendor/require.min.js"
+        script "data-main": "/js/entry_point/#{content.js}", src: "/js/vendor/require.min.js"
 
       content?.head?()
 

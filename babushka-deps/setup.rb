@@ -95,10 +95,10 @@ dep 'casperjs' do
 end
 
 dep 'setup-testing' do
-  RESOURCES_DIR = "test/javascripts/resources"
+  RESOURCES_DIR = "test/js/resources"
 
   TESTING_RESOURCES = [
-    ['public/javascripts/', "#{RESOURCES_DIR}/javascripts"],
+    ['public/js/', "#{RESOURCES_DIR}/js"],
     ['node_modules/mocha/mocha.js', "#{RESOURCES_DIR}/support/mocha.js"],
     ['node_modules/mocha/mocha.css', "#{RESOURCES_DIR}/support/mocha.css"],
     ['node_modules/chai/chai.js', "#{RESOURCES_DIR}/support/chai.js"],

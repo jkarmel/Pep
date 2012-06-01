@@ -56,7 +56,7 @@ describe "layout", ->
       $ = cheerio.load(html)
 
     it "uses require.js to load specified entry point", ->
-      $('head script[src="/javascripts/vendor/require.min.js"][data-main="/javascripts/entry_point/main"]')
+      $('head script[src="/js/vendor/require.min.js"][data-main="/js/entry_point/main"]')
         .length.should.equal 1
 
     it "allows more elements to be injected into head", ->

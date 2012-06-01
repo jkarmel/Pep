@@ -1,7 +1,7 @@
 node_modules/
-test/javascripts/resources/javascripts
-test/javascripts/resources/support/*
-!test/javascripts/resources/support/stubs.coffee
+test/js/resources/javascripts
+test/js/resources/support/*
+!test/js/resources/support/stubs.coffee
 .idea/
 .env
 *.js

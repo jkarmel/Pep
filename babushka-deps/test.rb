@@ -7,7 +7,7 @@ def with_running(command, wait = 0)
   `kill #{pid}`
 end
 
-TEST_APP_COMMAND = "coffee test/javascripts/app.coffee"
+TEST_APP_COMMAND = "coffee test/js/app.coffee"
 
 dep 'test.browser' do
   met? {
@@ -27,7 +27,7 @@ dep 'test.client.task' do
 
   run {
     with_running(TEST_APP_COMMAND, 1) do
-      system "casperjs test/javascripts/all.spec.coffee"
+      system "casperjs test/js/all.spec.coffee"
     end
   }
 end
@@ -38,7 +38,7 @@ dep 'test.backend.task' do
   run {
     test_dirs = "test/app.spec.coffee"
     Dir.foreach 'test' do |resource|
-      unless resource[/\./] or resource == 'javascripts'
+      unless resource[/\./] or resource == 'js'
         test_dirs += " test/#{resource}/*"
       end
     end
