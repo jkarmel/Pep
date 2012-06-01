@@ -1,4 +1,4 @@
-describe "coach page", ->
+describe "CoachPage", ->
   before (done) ->
     require ['/js/entry_point/coach.js'], -> done()
 
