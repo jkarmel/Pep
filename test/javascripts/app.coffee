@@ -12,7 +12,7 @@ app.configure ->
     enable: [ 'coffeescript' ]
 
   app.use express.compiler
-    src: __dirname + '/ui_components'
+    src: __dirname + '/ui'
     enable: [ 'coffeescript' ]
 
   app.use express.compiler
@@ -23,7 +23,7 @@ app.configure ->
 
   # Serve public files statically
   app.use express.static(__dirname + '/resources')
-  app.use express.static(__dirname + '/ui_components')
+  app.use express.static(__dirname + '/ui')
   app.use express.static(__dirname + '/entry_point')
 
 app.configure 'development', ->

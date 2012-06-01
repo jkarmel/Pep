@@ -15,7 +15,7 @@ Index = {
     $('#content').append new Index.Chat now
 }
 
-define ['/javascripts/ui_components/chat.html.js', '/javascripts/now/customer.js'],
+define ['/javascripts/ui/chat.html.js', '/javascripts/now/customer.js'],
         Index.setup
 
 window.Testable?.Index = Index
