@@ -42,7 +42,6 @@ describe "Index", ->
     it "adds a Chat window to content", ->
       $.fn.append = sinon.spy()
       Testable.Index.loadChat()
-      console.log $.fn.append.lastCall.args[0].constructor
       chat = $.fn.append.lastCall.args[0]
 
       chat.constructor.should.equal Testable.Index.Chat
