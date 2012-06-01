@@ -17,6 +17,15 @@ describe "routes", ->
 
       response.render.should.have.been.calledWith("index.html.coffee")
 
+  describe "coach", ->
+    it "renders 'coach.html.coffee'", ->
+      request = {}
+      response = { 'render' : sinon.stub() }
+
+      routes.coach(request, response)
+
+      response.render.should.have.been.calledWith("coach.html.coffee")
+
   describe "style", ->
     it "renders 'style.html.coffee'", ->
       request = {}

@@ -56,6 +56,7 @@ app.get '/', (req, res) ->
 
         script src: "/chat.spec.html.js"
         script src: "/index.spec.js"
+        script src: "/coach.spec.js"
 
         coffeescript ->
           $ ->

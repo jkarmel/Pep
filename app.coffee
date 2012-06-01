@@ -47,6 +47,7 @@ app.configure 'production', ->
 routes = require './routes'
 
 app.get '/', routes.index
+app.get '/coach', routes.coach
 app.get '/style', routes.style
 
 port = process.env.PORT || 3000
