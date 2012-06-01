@@ -38,6 +38,14 @@ application
         input type: 'text', placeholder: "input[type='text'][placeholder=]"
       p ->
         textarea "textarea"
+
+      p ->
+        select name: "pretty", tabindex: "1", ->
+          option "Choose a reaction"
+          option value: "amazed", "Amazed"
+          option value: "bored", "Bored"
+          option value: "surprised", "Surprised"
+
       form ->
         p "form"
         fieldset ->
@@ -117,6 +125,7 @@ application
                 b "6"
           div '.profile.pane', ->
             h3 'Payment'
+
 
         div '.chat', ->
           div '.messages', style: 'height: 600px;', ->
