@@ -48,7 +48,7 @@ exports.setupPubSub = setupPubSub = (models) ->
 
         pubsToSubs[model.modelName][@_id].push func
 
-exports.MODELS = MODELS = [ Session, Message, Customer ]
+exports.MODELS = MODELS = [Session, Message, Customer]
 
 setupPubSub(MODELS)
 

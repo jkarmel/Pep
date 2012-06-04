@@ -54,9 +54,9 @@ app.get '/', (req, res) ->
         script src: "/js/vendor/require.min.js"
         script src: "/support/stubs.js"
 
-        script src: "/chat.spec.html.js"
+        script src: "/session.spec.html.js"
         script src: "/index.spec.js"
-        script src: "/coach.spec.js"
+#        script src: "/coach.spec.js"
 
         coffeescript ->
           $ ->

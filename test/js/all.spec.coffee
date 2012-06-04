@@ -10,7 +10,7 @@ casper.start 'http://localhost:1337/'
 casper.waitFor (->
     this.getGlobal 'TESTS_COMPLETE'
   ), (->
-    results = this.evaluate ->
+    results = @evaluate ->
       pretty = ($element) ->
         s = $element.clone().children().remove().end().text()
         $duration = $element.find('span')

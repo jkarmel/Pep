@@ -78,11 +78,11 @@ describe 'extendNow', ->
         done()
 
     describe "now", ->
-      describe "addMessage", ->
+      describe "addCustomerMessage", ->
         it 'adds messages to the most recent session', (done) ->
-          customerGroup.now.should.respondTo 'addMessage'
+          customerGroup.now.should.respondTo 'addCustomerMessage'
           newestMessageText = 'lastest text'
-          customerGroup.now.addMessage newestMessageText, ->
+          customerGroup.now.addCustomerMessage newestMessageText, ->
             Customer.findOne {'email': 'jeremy@example.com'}, (error, customer) ->
               lastMessage = _.last (_.last customer.sessions).messages
               lastMessage.body.should.equal newestMessageText

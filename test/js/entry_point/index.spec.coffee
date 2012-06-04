@@ -10,7 +10,7 @@ describe "Index", ->
     it "binds click to start button", ->
       $.fn.click = sinon.spy()
       Testable.Index.main()
-      $.fn.click.should.have.been.calledWith Testable.Index.loadChat
+      $.fn.click.should.have.been.calledWith Testable.Index.loadSession
       Test.withSelector '#start-button', $.fn.click.lastCall
 
     it "removes loading and disabled", ->
@@ -21,9 +21,9 @@ describe "Index", ->
       Test.withSelector '#start-button', $.fn.removeClass.lastCall
       $.fn.removeClass.restore()
 
-  describe "loadChat", ->
+  describe "loadSession", ->
     before ->
-      Testable.Index.Chat = class
+      Testable.Index.Session = class
         initialize: (@now) ->
 
     beforeEach ->
@@ -31,19 +31,19 @@ describe "Index", ->
 
     it "empties the document body", ->
       $('#old').should.exist
-      Testable.Index.loadChat()
+      Testable.Index.loadSession()
       $('#old').should.not.exist
 
     it "creates a new customer", ->
       now.newCustomer = sinon.spy()
-      Testable.Index.loadChat()
+      Testable.Index.loadSession()
       now.newCustomer.should.have.been.called
 
-    it "adds a Chat window to content", ->
+    it "adds a Session window to content", ->
       $.fn.append = sinon.spy()
-      Testable.Index.loadChat()
-      chat = $.fn.append.lastCall.args[0]
+      Testable.Index.loadSession()
+      session = $.fn.append.lastCall.args[0]
 
-      chat.constructor.should.equal Testable.Index.Chat
+      session.constructor.should.equal Testable.Index.Session
       Test.withSelector '#content', $.fn.append.lastCall
       # TODO: Test now is in there?

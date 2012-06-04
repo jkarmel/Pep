@@ -4,6 +4,7 @@
 _ = require 'underscore'
 _.str = require 'underscore.string'
 
+# TODO: This might not be necessary
 exports.WRITABLE_FIELDS = WRITABLE_FIELDS = ['email', 'phone']
 
 CustomerMethods =
@@ -19,7 +20,7 @@ CustomerMethods =
     customerGroup = @getGroup "customer##{customerId}"
     customerGroup._id = customerId
 
-    customerGroup.now.addMessage = (body, callback) ->
+    customerGroup.now.addCustomerMessage = (body, callback) ->
       Customer.findOne {_id : customerId}, (error, customer) ->
         messages = customer.sessions[customer.sessions.length - 1].messages
         messages.push new Message
@@ -49,6 +50,8 @@ CustomerMethods =
       subscribeCallback?()
 
     customerGroup
+
+CoachMethods = {}
 
 exports.extendNow = (now, everyone) ->
   extend now, CustomerMethods

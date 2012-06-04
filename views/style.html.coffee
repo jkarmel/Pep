@@ -102,7 +102,7 @@ application
             input type: 'submit', value: 'Register'
 
     div ".page", ->
-      h1 ".sep", "Chat"
+      h1 ".sep", "Session"
       div '.session', ->
         div '.panes', ->
           div '.profile.pane', ->

@@ -36,8 +36,7 @@ describe "layout", ->
   it "has a head tag", ->
     $('head').length.should.equal(1)
 
-  it "links to basic stylesheets", ->
-    $('head link[rel="stylesheet"][href="/stylesheets/reset.css"]').length.should.equal(1)
+  it "links to main stylesheet", ->
     $('head link[rel="stylesheet"][href="/stylesheets/main.css"]').length.should.equal(1)
 
   it "links to basic javascript libraries", ->

@@ -1,21 +1,21 @@
 Index = {
-  setup: (Chat) ->
-    Index.Chat = Chat
+  setup: (Session) ->
+    Index.Session = Session
     $(document).ready ->
       now.ready ->
         Index.main()
 
   main: ->
     $("#start-button").removeClass('loading').removeClass('disabled')
-      .click @loadChat
+      .click @loadSession
 
-  loadChat: =>
+  loadSession: =>
     $('#content').html ''
     now.newCustomer()
-    $('#content').append new Index.Chat now
+    $('#content').append new Index.Session now
 }
 
-define ['/js/ui/chat.html.js', '/js/now/customer.js'],
+define ['/js/ui/session.html.js', '/js/now/customer.js'],
         Index.setup
 
 window.Testable?.Index = Index

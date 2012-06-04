@@ -1,4 +1,4 @@
 define ->
   now.subscribers = []
-  now.update = (customerDoc) ->
-    subscriber(customerDoc) for subscriber in now.subscribers
+  now.update = (customer) ->
+    subscriber(customer) for subscriber in now.subscribers

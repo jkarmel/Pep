@@ -1,11 +1,12 @@
 define ["/js/vendor/space-pen.js", "/js/vendor/jquery-ui.custom.min.js"], ->
-  Chat = class extends View
+  Session = class extends View
     @content = ->
-      @div ".session", =>
-        @div ".chat", =>
-          @div ".messages", outlet: "messages", ""
-          @div '.composer', outlet: 'composer', =>
-            @textarea keypress: 'sendMessage'
+      @div ".page", =>
+        @div ".session", =>
+          @div ".chat", =>
+            @div ".messages", outlet: "messages", ""
+            @div '.composer', outlet: 'composer', =>
+              @textarea keypress: 'sendMessage'
 
     initialize: (@now) ->
       now.subscribers.push @render
@@ -31,5 +32,5 @@ define ["/js/vendor/space-pen.js", "/js/vendor/jquery-ui.custom.min.js"], ->
 
     sendMessage: (event, element) =>
       if event.which == $.ui.keyCode.ENTER && !event.shiftKey && /\S/.test(element.val())
-        @now.addMessage element.val(), => element.val("")
+        @now.addCustomerMessage element.val(), => element.val("")
 
