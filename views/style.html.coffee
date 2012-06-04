@@ -44,6 +44,12 @@ application
         input type: 'text', placeholder: "input[type='text'][placeholder=]"
       p ->
         textarea "textarea"
+      p ->
+        input ".small", type: 'text', value: "input.small[type='text']"
+      p ->
+        input ".small", type: 'text', placeholder: "input.small[type='text'][placeholder=]"
+      p ->
+        textarea ".small", "textarea"
 
       p ->
         select name: "pretty", tabindex: "1", ->

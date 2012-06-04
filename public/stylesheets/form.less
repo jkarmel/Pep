@@ -93,18 +93,24 @@ form {
 
 input, textarea {
   font-family: @p-font;
-}
-
-input, textarea {
   font-size: @large-font;
   line-height: 1em;
   padding: 10px;
+
+  &.small {
+    font-size: @small-font;
+    padding: 8px;
+  }
 }
 
 input[type='text'], textarea {
   width: 350px;
   .border-radius;
   border: 1px solid @grey-med-light;
+
+  &.small {
+    width: 200px;
+  }
 }
 
 textarea {
@@ -136,11 +142,6 @@ input {
     padding-top: 8px;
     padding-bottom: 8px;
   }
-}
-
-input.small, textarea.small {
-  font-size: @small-font;
-  padding: 8px;
 }
 
 // DropKick ------
