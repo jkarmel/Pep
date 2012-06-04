@@ -1,4 +1,5 @@
 express = require 'express'
+lessMiddleware = require 'less-middleware'
 
 app = module.exports = express.createServer()
 
@@ -18,6 +19,10 @@ app.configure ->
   app.use express.compiler
     src: __dirname + '/public'
     enable: [ 'less' ]
+
+  app.use lessMiddleware
+    src: __dirname + '/public',
+    compress: true
 
   # Compile public Coffeescript
   app.use express.compiler
@@ -47,7 +52,7 @@ app.configure 'production', ->
 routes = require './routes'
 
 app.get '/', routes.index
-app.get '/coach', routes.coach
+#app.get '/coach/chat', routes.coach
 app.get '/style', routes.style
 
 port = process.env.PORT || 3000

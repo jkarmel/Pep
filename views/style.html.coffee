@@ -41,7 +41,14 @@ application
 
       p ->
         select name: "pretty", tabindex: "1", ->
-          option "Choose a reaction"
+          option ".select"
+          option value: "amazed", "Amazed"
+          option value: "bored", "Bored"
+          option value: "surprised", "Surprised"
+
+      p ".small", ->
+        select name: "pretty", tabindex: "1", ->
+          option ".small select"
           option value: "amazed", "Amazed"
           option value: "bored", "Bored"
           option value: "surprised", "Surprised"
