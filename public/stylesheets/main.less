@@ -118,40 +118,6 @@ a {
   }
 }
 
-.button {
-  .transition;
-  .border-radius;
-
-  -webkit-appearance: none;
-
-  color: white;
-  font-weight: normal;
-  cursor: pointer;
-
-  border: 2px solid @blue;
-  background-color: @blue;
-
-  // IE7
-  overflow: visible;
-
-  &:hover {
-    .transition;
-    color: white;
-    border-color: @blue-dark;
-  }
-
-  &.inactive {
-    cursor: default;
-    border-color: @grey-med;
-    background-color: @grey-med;
-
-    &:hover {
-      border-color: @grey-med;
-    }
-  }
-
-}
-
 .disabled {
   color: @black !important;
   background-color: @grey-med-light !important;
@@ -179,6 +145,14 @@ body {
 
 .center {
   text-align: center !important;
+}
+
+.left {
+  text-align: left !important;
+}
+
+.right {
+  text-align: right !important;
 }
 
 p, ol, ul {

@@ -1,3 +1,36 @@
+.button {
+  .transition;
+  .border-radius;
+
+  -webkit-appearance: none;
+
+  color: white;
+  font-weight: normal;
+  cursor: pointer;
+
+  border: 2px solid @blue;
+  background-color: @blue;
+
+// IE7
+  overflow: visible;
+
+  &:hover {
+    .transition;
+    color: white;
+    border-color: @blue-dark;
+  }
+
+  &.inactive {
+    cursor: default;
+    border-color: @grey-med;
+    background-color: @grey-med;
+
+    &:hover {
+      border-color: @grey-med;
+    }
+  }
+}
+
 form {
   .field {
     margin-bottom: 10px;
@@ -15,6 +48,11 @@ form {
     .controls {
       margin-left: 160px;
     }
+  }
+
+  .submit {
+    .right;
+    width: 532px;
   }
 
   &.small {
@@ -44,6 +82,11 @@ form {
 
     input[type='text'], textarea {
       width: 200px;
+    }
+
+    .submit {
+      .right;
+      width: 328px;
     }
   }
 }
@@ -93,6 +136,11 @@ input {
     padding-top: 8px;
     padding-bottom: 8px;
   }
+}
+
+input.small, textarea.small {
+  font-size: @small-font;
+  padding: 8px;
 }
 
 // DropKick ------
@@ -225,11 +273,11 @@ input {
   font-weight: @normal-weight;
 }
 
-.small {
-  .dk_container {
-    font-size: @small-font;
-  }
+.small .dk_container, .dk_container.small {
+  font-size: @small-font;
+}
 
+.small {
   .dk_toggle {
     padding: 8px 40px 8px 8px;
   }

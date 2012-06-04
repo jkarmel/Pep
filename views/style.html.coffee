@@ -33,6 +33,12 @@ application
       p ->
         input ".disabled.loading", type: 'submit', value: "input.disabled.loading"
       p ->
+        input ".small", type: 'submit', value: "input.small[type='submit'] | [type='button']"
+      p ->
+        input ".small.disabled", type: 'submit', value: "input.small.disabled"
+      p ->
+        input ".small.disabled.loading", type: 'submit', value: "input.small.disabled.loading"
+      p ->
         input type: 'text', value: "input[type='text']"
       p ->
         input type: 'text', placeholder: "input[type='text'][placeholder=]"
@@ -68,6 +74,8 @@ application
             label "Label 3"
             div ".controls", ->
               input type: 'text', value: ".controls input[type='text']"
+          div ".submit", ->
+            input type: 'submit', value: 'Register'
 
       form ".small", ->
         p "form.small"
@@ -84,6 +92,8 @@ application
             label "Label 3"
             div ".controls", ->
               input type: 'text', value: ".controls input[type='text']"
+          div ".submit", ->
+            input type: 'submit', value: 'Register'
 
     div ".page", ->
       h1 ".sep", "Chat"
