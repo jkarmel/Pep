@@ -5,6 +5,7 @@
   "dependencies": {
     "express": "2.5.0",
     "less": ">= 0.0.1",
+    "less-middleware": ">= 0.0.1",
     "coffeekup": ">= 0.0.1",
     "mocha" : ">= 0.0.1",
     "chai" : ">= 0.0.1",
