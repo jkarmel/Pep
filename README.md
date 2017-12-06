@@ -111,7 +111,7 @@ To run the app simply use `babushka run` or, if you want the server to update wh
 
 ## Tests
 
-The tests are written in [mocha](http://visionmedia.github.com/mocha/) and follow BDD convention. Use `babushka test` to run all of them.
+The tests are written in [mocha](http://mochajs.org/) and follow BDD convention. Use `babushka test` to run all of them.
 
  * `babushka test.browser` - Starts our test server and opens up page in your favorite browser to run the client-side tests.
  * `babushka test.client` - Runs all client-side tests automatically using a headless Webkit.
@@ -144,6 +144,6 @@ The tests are written in [mocha](http://visionmedia.github.com/mocha/) and follo
 
 ### Testing
 
-[mocha](http://visionmedia.github.com/mocha/) - BDD/TDD testing framework similar to Jasmine but modular  
+[mocha](http://mochajs.org/) - BDD/TDD testing framework similar to Jasmine but modular  
 [chai](http://chaijs.com/) - BDD/TDD assertion library  
 [sinon](http://sinonjs.org/) - Spy/stubbing/mocking framework
